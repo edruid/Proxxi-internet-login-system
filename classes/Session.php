@@ -9,10 +9,6 @@ class Session extends BasicObject {
 	protected static function table_name() {
 		return 'sessions';
 	}
-
-	public static function from_session($session) {
-		static::from_field('session', $session);
-	}
 }
 ?>
 
