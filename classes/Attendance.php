@@ -56,4 +56,3 @@ class Attendance extends BasicObject {
 	}
 }
 ?>
-

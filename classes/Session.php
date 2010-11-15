@@ -11,4 +11,3 @@ class Session extends BasicObject {
 	}
 }
 ?>
-

@@ -23,3 +23,4 @@ class Network {
 		return preg_match('/^([0-9A-F]{1,2}:){5}[0-9A-F]{1,2}$/i', $mac);
 	}
 }
+?>

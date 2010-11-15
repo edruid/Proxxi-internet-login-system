@@ -11,4 +11,3 @@ class GroupAccess extends BasicObject {
 	}
 }
 ?>
-

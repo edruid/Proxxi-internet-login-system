@@ -4,3 +4,4 @@ class Helpers {
 		return true;
 	}
 }
+?>

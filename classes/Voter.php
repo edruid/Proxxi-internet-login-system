@@ -15,4 +15,3 @@ class Voter extends BasicObject {
 	}
 }
 ?>
-

@@ -15,4 +15,3 @@ class Access extends BasicObject {
 	}
 }
 ?>
-

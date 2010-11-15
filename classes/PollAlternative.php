@@ -15,4 +15,3 @@ class PollAlternative extends BasicObject {
 	}
 }
 ?>
-
