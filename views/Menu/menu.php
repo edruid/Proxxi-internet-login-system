@@ -1,7 +1,7 @@
 <?php
 	$user = $this->_get('session');
 	if($user) {
-		$user = $session->user;
+		$user = $user->User;
 	}
 ?>
 <div class="menu">
@@ -16,7 +16,7 @@
 		<li><a href="/Static/internet_rules">Internetregler</a></li>
 		<li><a href="/Static/rules">Lokalregler</a></li>
 		<? if($user): ?>
-			<li><a href="/User/edit/<?=$user->id?>">Min info</a></li>
+			<li><a href="/User/edit/<?=$user->username?>">Min info</a></li>
 			<li><a href="/Poll/index">Omröstningar</a></li>
 			<? if($user->has_access('create_news')): ?>
 				<li><a href="/News/create">Ny nyhet</a></li>
@@ -33,6 +33,7 @@
 			<? if($user->has_access('edit_user')): ?>
 				<li><a href="/User/create">Skapa medlem</a></li>
 			<? endif ?>
+			<li><a href="/Session/delete">Logga ut</a></li>
 		<? else: ?>
 			<li><a href="/User/create">Bli medlem</a></li>
 		<? endif ?>
