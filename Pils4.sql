@@ -29,7 +29,7 @@ CREATE TABLE `users` (
 	`street_address` varchar(64) NOT NULL,
 	`area_code` int(6) unsigned NOT NULL,
 	`area` varchar(64) NOT NULL,
-	`password` varchar(34) DEFAULT NULL,
+	`password` varchar(70) DEFAULT NULL,
 	`nthash` varchar(34) DEFAULT NULL,
 	PRIMARY KEY (`user_id`),
 	UNIQUE KEY `username` (`username`)
@@ -129,13 +129,13 @@ CREATE TABLE `log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `sessions` (
+	`session_id` int(10) unsigned NOT NULL,
 	`user_id` int(10) unsigned NOT NULL,
 	`mac` varchar(17) NOT NULL,
 	`time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	`internet` boolean NOT NULL,
-	`session` int(10) unsigned NOT NULL,
 	FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
-	PRIMARY KEY (`mac`)
+	PRIMARY KEY (`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `polls` (
