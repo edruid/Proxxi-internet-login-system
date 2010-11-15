@@ -1,8 +1,3 @@
-<?php
-$user = $this->_get('user');
-$current_user = $this->_get('current_user');
-$admin = $current_user->has_access('edit_user');
-?>
 <? if($user->id == $current_user->id): ?>
 	<h1>Min info</h1>
 <? else: ?>
@@ -97,8 +92,25 @@ $admin = $current_user->has_access('edit_user');
 			<th>Lösenord</th>
 			<td><input type="password" name="old_password" /></td>
 		</tr>
-		<tr>
-			<td colspan="2"><input type="submit" value="Uppdatera" /></td>
-		</tr>
+			
 	</table>
+	<? if($user->id == $current_user->id): ?>
+		<ul>
+			<? foreach($settings as $setting): ?>
+				<li>
+					<label>
+						<input type="checkbox" name="<?=$setting->code_name?>"
+								<?=UserSetting::count(array(
+									'user_id' => $user->id,
+									'setting_id' => $setting->id,
+								)) > 1 ? 'checked="checked"' : ''?> />
+						<?=$setting->name?>
+					</label>
+				</li>
+			<? endforeach ?>
+		</ul>
+	<? endif ?>
+	<div>
+		<input type="submit" value="Uppdatera" />
+	</div>
 </form>

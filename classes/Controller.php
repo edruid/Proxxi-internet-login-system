@@ -18,7 +18,7 @@ class Controller {
 		if($type == 'script') {
 			$pos = stripos($_SERVER['HTTP_REFERER'], "://{$_SERVER['HTTP_HOST']}");
 			if($pos != 4 && $pos != 5) {
-				throw new Exception("$pos Referer missmatch. Suspected CSRF attack. Referer is: {$_SERVER['HTTP_REFERER']} site is: ://{$_SERVER['HTTP_HOST']}");
+				throw new Exception("Referer missmatch. Suspected CSRF attack. Referer is: {$_SERVER['HTTP_REFERER']} host is: {$_SERVER['HTTP_HOST']}");
 			}
 		}
 	}
@@ -42,6 +42,9 @@ class Controller {
 	private static function _reg($key) {
 		static $data = array();
 		$params = func_get_args();
+		if(count($params) == 3) {
+			return $data;
+		}
 		if(count($params) == 2) {
 			$data[$key] = $params[1];
 		} else {
@@ -75,6 +78,10 @@ class Controller {
 		if(!file_exists($file)) {
 			throw new Exception("No such file \"$file\"");
 		}
+		$data= $this->_reg(0,0,0);
+		foreach($data as $key => $value) {
+			$$key = $value;
+		}
 		require $file;
 	}
 
@@ -94,3 +101,4 @@ class Controller {
 		}
 	}
 }
+?>
