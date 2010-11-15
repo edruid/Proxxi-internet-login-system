@@ -15,7 +15,11 @@ class User extends BasicObject {
 	}
 
 	public function has_password($password) {
-		return crypt($password, $this->password) == $this->password;
+		$crypt = crypt($password, $this->password);
+		if($crypt == '') {
+			return false;
+		}
+		return $crypt == $this->password;
 	}
 
 	public static function from_username($username) {
@@ -35,6 +39,12 @@ class User extends BasicObject {
 			),
 			'GroupAccess.Group.UserGroup.user_id' => $this->id,
 		));
+	}
+
+	public function may_be_edited($user) {
+		return $user != null &&
+				($this->id == $user->id ||
+				$user->has_access('edit_user'));
 	}
 
 	public function __set($key, $value) {
@@ -87,8 +97,12 @@ class User extends BasicObject {
 				}
 				break;
 			case 'phone1':
+				if($value == '') {
+					throw new UserException('Telefonnumret validerar inte');
+				}
+				//fallthrough
 			case 'phone2':
-				if(($value != '' || $key == 'phone1') && !preg_match('/\A[0+][-0-9 ]{5,15}\Z/', $value)) {
+				if(!preg_match('/\A[0+][-0-9 ]{5,15}\Z/', $value)) {
 					if($key == 'phone1') {
 						throw new UserException('Telefonnumret validerar inte');
 					} else {
@@ -102,9 +116,10 @@ class User extends BasicObject {
 				}
 				break;
 			case 'area_code':
-				if(!preg_match('/\A[1-][0-9]{4}\Z/', $value )) {
-					throw new UserException('Gatuadress saknas');
+				if(!preg_match('/\A[1-9][0-9]{2} ?[0-9]{2}\Z/', $value )) {
+					throw new UserException('Postnummer validerar inte');
 				}
+				$value = str_replace(' ', '', $value);
 				break;
 			case 'area':
 				if($value == ''){
@@ -132,6 +147,23 @@ class User extends BasicObject {
 		}
 		parent::__set($key, $value);
 	}
-}
-?>
 
+	public function __get($key) {
+		switch($key) {
+			case 'personnummer':
+				return str_replace('-', '', $this->birthdate)."-{$this->person_id_number}";
+			default:
+				return parent::__get($key);
+		}
+	}
+
+	public function commit() {
+		if(!Validate::personidnumber(str_replace('-', '', $this->birthdate).'-'.$this->person_id_number)) {
+			throw new UserException("Personnumret validerar inte");
+		}
+		parent::commit();
+	}
+}
+
+class UserException extends Exception {}
+?>

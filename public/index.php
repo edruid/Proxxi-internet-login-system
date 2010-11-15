@@ -1,5 +1,4 @@
 <?php
-define('HTML_ACCESS', true);
 require "../includes.php";
 
 // Prepare path
@@ -9,11 +8,12 @@ $request=explode('/',$path_info);
 array_shift($request);
 $main=array_shift($request);
 if($main == '') {
-	$page = "CNews";
+	$main = "News";
 }
+$session = Session::from_id(session_id());
 $page = $main.'C';
 if(!class_exists($page)) {
-	die('too bad');
+	die("$main does not exist");
 }
 $page = new $page(array_shift($request), $request);
 $page->_print_child();

@@ -1,4 +1,4 @@
-<form method="post" action="/Session/new">
+<form method="post" action="/Session/make">
 	<table>
 		<tr>
 			<th>Användarnamn</th>

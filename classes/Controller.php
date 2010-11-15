@@ -2,6 +2,27 @@
 class Controller {
 	protected $_default_site = null;
 
+	public static function _access_type($type) {
+		if(defined('HTML_ACCESS')) {
+			if(HTML_ACCESS != ($type == 'html')) {
+				throw new Exception("Trying to change HTML_ACCESS value.");
+			}
+			return;
+		}
+		if($type == 'html') {
+			define('HTML_ACCESS', true);
+		} else {
+			define('HTML_ACCESS', false);
+		}
+
+		if($type == 'script') {
+			$pos = stripos($_SERVER['HTTP_REFERER'], "://{$_SERVER['HTTP_HOST']}");
+			if($pos != 4 && $pos != 5) {
+				throw new Exception("$pos Referer missmatch. Suspected CSRF attack. Referer is: {$_SERVER['HTTP_REFERER']} site is: ://{$_SERVER['HTTP_HOST']}");
+			}
+		}
+	}
+
 	public function __construct($site, $data = array()) {
 		if(!$site) {
 			$site = static::default_site;
@@ -50,7 +71,11 @@ class Controller {
 	}
 
 	public function _print_child() {
-		require self::_stack();
+		$file = self::_stack();
+		if(!file_exists($file)) {
+			throw new Exception("No such file \"$file\"");
+		}
+		require $file;
 	}
 
 	protected function _display($view) {
