@@ -75,6 +75,9 @@ class Controller {
 
 	public function _print_child() {
 		$file = self::_stack();
+		if(!$file) {
+			return;
+		}
 		if(!file_exists($file)) {
 			throw new Exception("No such file \"$file\"");
 		}
@@ -87,6 +90,10 @@ class Controller {
 
 	protected function _display($view) {
 		$file = get_called_class();
+		if(!$view) {
+			$this->_stack(null);
+			return;
+		}
 		if(substr($file, -1, 1) == 'C') {
 			$file = substr($file, 0, -1);
 		}
