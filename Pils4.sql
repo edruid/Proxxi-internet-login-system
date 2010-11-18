@@ -52,7 +52,7 @@ CREATE TABLE `user_settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `accesses` (
-	`access_id` int unsigned not null,
+	`access_id` int unsigned not null AUTO_INCREMENT,
 	`name` varchar(100) not null unique,
 	`code_name` varchar(20) not null unique,
 	PRIMARY KEY(`access_id`)
