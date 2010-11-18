@@ -327,11 +327,27 @@ abstract class BasicObject {
 	public function delete() {
 		global $db;
 		if(isset($this->_exists) && $this->_exists){
-			$stmt = $db->prepare("
-				DELETE FROM ".$this->table_name()."
-				WHERE ".$this->id_name()." = ?"
-			);
-			$stmt->bind_param('s', $this->id);
+			$types='';
+			$params = array(&$types);
+			$query = "DELETE FROM ".$this->table_name();
+			if(is_array($this->id_name())) {
+				$query .= "\nWHERE ";
+				$subquery = '';
+				foreach($this->id_name() as $field) {
+					$subquery .= "`$field` = ? AND ";
+					$dummy[$field] = $this->$field;
+					$params[] = &$dummy[$field];
+					$types .= 's';
+				}
+				$query .= substr($subquery, 0, -5);
+			} else {
+				$query .= "\nWHERE `".$this->id_name()."` = ?";
+				$id = $this->id;
+				$types .= 'i';
+				$params[] = &$id;
+			}
+			$stmt = $db->prepare($query);
+			call_user_func_array(array($stmt, 'bind_param'), $params);
 			$stmt->execute();
 			$stmt->close();
 		}
