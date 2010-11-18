@@ -32,11 +32,6 @@ class UserC extends Controller {
 		$this->_register('user', $user);
 		$admin = $current_user->has_access('edit_user');
 		$this->_register('admin', $admin);
-		if($user->id == $current_user->id) {
-			$this->_register('settings', Setting::selection(array(
-				'@order' => 'name',
-			)));
-		}
 		$this->_display('edit');
 		new LayoutC('html');
 	}

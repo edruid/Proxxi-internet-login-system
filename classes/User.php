@@ -27,8 +27,8 @@ class User extends BasicObject {
 	}
 	
 	public function has_access($access) {
-		return 1 <= Access::count(array(
-			'name' => $access,
+		$access = Access::count(array(
+			'code_name' => $access,
 			'@or:1' => array(
 				'GroupAccess.valid_until:<' => date('Y-m-d h:i:s'),
 				'GroupAccess.permanent' => true,
@@ -39,6 +39,7 @@ class User extends BasicObject {
 			),
 			'GroupAccess.Group.UserGroup.user_id' => $this->id,
 		));
+		return 1 >= $access;
 	}
 
 	public function may_be_edited($user) {
@@ -54,7 +55,7 @@ class User extends BasicObject {
 				if($value=='') {
 					throw new UserException('Du måste ha ett användarnamn!');
 				}
-				if(!preg_match('/\A[a-zåäö][-_a-zåäö0-9]*\Z/')) {
+				if(!preg_match('/\A[a-zåäö][-_a-zåäö0-9]*\Z/', $value)) {
 					throw new UserException('Användarnamnet får bara innehålla a-ö, 0-9, _ och -');
 				}
 				if($this->username != $value && User::from_username($value) != null) {
@@ -84,7 +85,7 @@ class User extends BasicObject {
 				if($date > date_create('now')) {
 					throw new UserException("Födelsedatumet kan inte vara i framtiden.");
 				}
-				$value = $date->createFromFormat('Y-m-d');
+				$value = $date->format('Y-m-d');
 				break;
 			case 'person_id_number':
 				if(!preg_match('/\A[0-9]{4}\Z/', $value)) {
@@ -96,12 +97,12 @@ class User extends BasicObject {
 					throw new UserException('Epostadressen validerar inte');
 				}
 				break;
-			case 'phone1':
+			case 'phone2':
 				if($value == '') {
-					throw new UserException('Telefonnumret validerar inte');
+					break;
 				}
 				//fallthrough
-			case 'phone2':
+			case 'phone1':
 				if(!preg_match('/\A[0+][-0-9 ]{5,15}\Z/', $value)) {
 					if($key == 'phone1') {
 						throw new UserException('Telefonnumret validerar inte');
