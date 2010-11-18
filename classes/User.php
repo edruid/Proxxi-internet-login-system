@@ -58,8 +58,8 @@ class User extends BasicObject {
 				if(!preg_match('/\A[a-zåäö][-_a-zåäö0-9]*\Z/', $value)) {
 					throw new UserException('Användarnamnet får bara innehålla a-ö, 0-9, _ och -');
 				}
-				if($this->username != $value && User::from_username($value) != null) {
-					throw new UserException('Användarnamnet är uptaget');
+				if((!$this->_exists || $this->username != $value) && User::from_username($value) != null) {
+					throw new UserException('Användarnamnet är upptaget');
 				}
 				break;
 			case 'first_name':

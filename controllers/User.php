@@ -36,6 +36,65 @@ class UserC extends Controller {
 		new LayoutC('html');
 	}
 
+	public function create($params) {
+		$this->_access_type('html');
+		$this->_display('create');
+		new LayoutC('html');
+	}
+
+	public function make($params) {
+		$this->_access_type('script');
+		$fields = array(
+			'username',
+			'first_name',
+			'surname',
+			'birthdate', 
+			'person_id_number',
+			'sex',
+			'phone1',
+			'phone2',
+			'email',
+			'street_address',
+			'area_code',
+			'area',
+			'password'
+		);
+		$error = false;
+		if(ClientData::post('password') != ClientData::post('confirm_password')) {
+			Message::add_error("Lösenorden matchar inte varandra");
+			$error = true;
+		}
+		$user = new User();
+		foreach($fields as $field) {
+			try{
+				$user->$field = ClientData::post($field);
+			} catch(UserException $e) {
+				Message::add_error($e->getMessage());
+				$error = true;
+			}
+		}
+		if(!$error) {
+			try{
+				$user->commit();
+			} catch(UserException $e) {
+				Message::add_error($e->getMessage());
+				$error = true;
+			}
+		}
+		if($error) {
+			$data = $_POST;
+			unset($data['password']);
+			unset($data['old_password']);
+			unset($data['confirm_password']);
+			ClientData::session_set('_POST', $post);
+			URL::redirect("/User/create");
+		} else {
+			URL::redirect("/User/view/{$user->username}");
+		}
+	}
+			
+			
+
 	public function modify($params) {
 		$this->_access_type('script');
 		global $session;

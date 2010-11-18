@@ -39,6 +39,8 @@
 							<input type="radio" name="sex" value="female" <?=$user->sex=='female'?'checked="checked"':''?> />
 							Kvinna
 						</label>
+					</td>
+				</tr>
 			<? else: ?>
 				<tr>
 					<th>Användarnamn</th>
@@ -87,8 +89,6 @@
 			<tr>
 				<th>Bekräfta nytt lösenord</th>
 				<td><input type="password" name="confirm_password" /></td>
-			</tr>
-			<tr>
 			</tr>
 		</table>
 		<p>
