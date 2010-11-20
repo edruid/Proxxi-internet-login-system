@@ -12,9 +12,9 @@
 			new MenuC('menu');
 			$this->_print_child();
 		?>
-		<div id="errors">
+		<div id="messages">
 			<?php
-				new ErrorC('index');
+				new MessageC('index');
 				$this->_print_child();
 			?>
 		</div>
