@@ -42,6 +42,13 @@ class User extends BasicObject {
 		return 1 >= $access;
 	}
 
+	public function has_setting($setting) {
+		return Setting::count(array(
+			'code_name' => $setting,
+			'UserSetting.user_id' => $this->id,
+		));
+	}
+
 	public function may_be_edited($user) {
 		return $user != null &&
 				($this->id == $user->id ||
