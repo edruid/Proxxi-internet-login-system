@@ -31,7 +31,7 @@ class UserSettingC extends Controller {
 		unset($user_settings_tmp);
 		foreach($settings as $setting) {
 			if(array_key_exists($setting->id, $user_settings)) {
-				if(!ClientData::post($setting->name) == 'on') {
+				if(ClientData::post($setting->code_name) != 'on') {
 					$user_settings[$setting->id]->delete();
 				}
 			} else {
