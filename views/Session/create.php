@@ -1,15 +1,10 @@
 <form method="post" action="/Session/make">
-	<table>
-		<tr>
-			<th>Användarnamn</th>
-			<td><input type="text" name="username" /></td>
-		</tr>
-		<tr>
-			<th>Lösenord</th>
-			<td><input type="password" name="password" /></td>
-		</tr>
-		<tr>
-			<td colspan="2"><input type="submit" value="Logga in" /></td>
-		</tr>
-	</table>
+	<fieldset>
+		<legend>Logga in</legend>
+		Användarnamn:<br/>
+		<input type="text" name="username" /><br/>
+		Lösenord:<br/>
+		<input type="password" name="password" /><br/>
+		<input type="submit" value="Logga in" />
+	</fieldset>
 </form>
