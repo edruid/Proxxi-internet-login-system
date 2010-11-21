@@ -6,7 +6,7 @@
 ?>
 <div class="menu">
 	<ul>
-		<li><a href="/user/keyholder_index">Nyckelbärare</a></li>
+		<li><a href="/User/keyholder_index">Nyckelbärare</a></li>
 		<? if(Helpers::is_local()): ?>
 			<li><a href="/Attendance/create">Närvarorapport</a></li>
 			<li><a href="/Karaoke/index">Karaoke kö</a></li>
