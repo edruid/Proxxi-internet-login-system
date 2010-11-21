@@ -4,7 +4,7 @@
 	<head>
 		<title><?=$this->_get('title')?></title>
 		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
-		<link type="text/css" rel="stylesheet" href="style.css" />
+		<link type="text/css" rel="stylesheet" href="/style.css" />
 		<script type="text/javascript" src="/js/sort.js"></script>
 	</head>
 	<body>
