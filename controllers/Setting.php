@@ -14,7 +14,7 @@ class SettingC extends Controller {
 		$this->_access_type('html');
 		global $session;
 		if($session == null || !$session->User->has_access('setting_editor')) {
-			Message::add_error("Du har inte access att skapa nya inställningar");
+			Message::add_error("Du har inte access att redigera inställningar");
 			URL::redirect('');
 		}
 		$this->_display('edit');
@@ -55,8 +55,9 @@ class SettingC extends Controller {
 		$this->_access_type('script');
 		global $session;
 		if($session == null || !$session->User->has_access('setting_editor')) {
-			Message::add_error("Du har inte access att skapa nya inställningar");
+			Message::add_error("Du har inte access att redigera inställningar");
 			URL::redirect('');
 		}
 	}
 }
+?>
