@@ -39,7 +39,7 @@ class User extends BasicObject {
 			),
 			'GroupAccess.Group.UserGroup.user_id' => $this->id,
 		));
-		return 1 >= $access;
+		return 1 == $access;
 	}
 
 	public function has_setting($setting) {
