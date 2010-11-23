@@ -86,7 +86,7 @@ class UserC extends Controller {
 			unset($data['password']);
 			unset($data['old_password']);
 			unset($data['confirm_password']);
-			ClientData::session_set('_POST', $post);
+			ClientData::defaults_set($data);
 			URL::redirect("/User/create");
 		} else {
 			URL::redirect("/User/view/{$user->username}");

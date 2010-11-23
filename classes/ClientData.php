@@ -36,7 +36,32 @@ class ClientData {
 	}
 
 	public static function session_set($string,$value) {
-		$_SESSION[$string]=$value;
+		if($value == null) {
+			unset($_SESSION[$string]);
+		} else {
+			$_SESSION[$string]=$value;
+		}
+	}
+
+	public static function defaults_set($data = null) {
+		if($data == null) {
+			$data = $_POST;
+		}
+		self::session_set('_defaults', $data);
+	}
+
+	public static function clear_defaults() {
+		self::session_set('_defaults', null);
+	}
+
+	public static function defaults($key) {
+		if(!isset($_SESSION['_defaults'])) {
+			return null;
+		}
+		if(!isset($_SESSION['_defaults'][$key])) {
+			return null;
+		}
+		return self::clean($_SESSION['_defaults'][$key]);
 	}
 }
 ?>
