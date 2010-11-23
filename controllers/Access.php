@@ -58,6 +58,7 @@ class AccessC extends Controller {
 		try{
 			$setting = new Access();
 			$setting->name = ClientData::post('name');
+			$setting->code_name = ClientData::post('code_name');
 			$setting->commit();
 			URL::redirect('/Access/index');
 		} catch(Exception $e) {
