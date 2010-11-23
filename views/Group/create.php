@@ -1,3 +1,4 @@
+<h1>Skapa grupp</h1>
 <form action="/Group/make" method="post">
 	<fieldset>
 		<table>
@@ -9,4 +10,3 @@
 		<input type="submit" value="Skapa ny grupp" />
 	</fieldset>
 </form>
-
