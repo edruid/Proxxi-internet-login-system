@@ -25,7 +25,7 @@ class Controller {
 
 	public function __construct($site, $data = array()) {
 		if(!$site) {
-			$site = static::default_site;
+			$site = $this->_default_site;
 			if(!$site) {
 				throw new Exception("No default site to visit");
 			}

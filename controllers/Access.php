@@ -1,5 +1,6 @@
 <?php
 class AccessC extends Controller {
+	protected $_default_site = 'index';
 	public function index($params) {
 		$this->_access_type('html');
 		global $session;

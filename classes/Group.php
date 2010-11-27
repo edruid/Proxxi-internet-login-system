@@ -1,6 +1,7 @@
 <?php
 
 class Group extends BasicObject {
+	protected $_default_site = 'index';
 
 	/**
 	 * Used by BasicObject to determine the table name.
