@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS `user_groups`;
 DROP TABLE IF EXISTS `group_access`;
+DROP TABLE IF EXISTS `grant_privilages`;
 DROP TABLE IF EXISTS `memberships`;
 DROP TABLE IF EXISTS `attendance`;
 DROP TABLE IF EXISTS `blocked`;
@@ -79,6 +80,14 @@ CREATE TABLE `group_access` (
 	`group_id` int(10) unsigned not null,
 	`valid_until` datetime default '0000-00-00',
 	`permanent` boolean not null,
+	FOREIGN KEY (`access_id`) REFERENCES `accesses` (`access_id`) ON DELETE CASCADE,
+	FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`) ON DELETE CASCADE,
+	PRIMARY KEY(`group_id`, `access_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `grant_privilages` (
+	`access_id` int(10) unsigned not null,
+	`group_id` int(10) unsigned not null,
 	FOREIGN KEY (`access_id`) REFERENCES `accesses` (`access_id`) ON DELETE CASCADE,
 	FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`) ON DELETE CASCADE,
 	PRIMARY KEY(`group_id`, `access_id`)
