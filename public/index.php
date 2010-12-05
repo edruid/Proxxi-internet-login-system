@@ -8,7 +8,7 @@ $request=explode('/',$path_info);
 array_shift($request);
 $main=array_shift($request);
 if($main == '') {
-	$main = "News";
+	$main = "Access";
 }
 $session = Session::from_id(session_id());
 $page = $main.'C';
