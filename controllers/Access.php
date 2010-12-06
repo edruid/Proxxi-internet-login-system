@@ -18,12 +18,12 @@ class AccessC extends Controller {
 	public function edit($params) {
 		$this->_access_type('html');
 		global $session;
-		if($session == null || !$session->User->has_access('access_editor')) {
+		if($session == null || !$session->User->has_access('edit_access')) {
 			Message::add_error("Du har inte access att redigera rättigheter");
 			URL::redirect('');
 		}
-		$access = Access::from_id(ClientData::post(array_shift($access)));
-		if(!$access) {
+		$access = Access::from_code_name(array_shift($params));
+		if($access == null) {
 			Message::add_error("Rättigheten du försöker redigera finns inte");
 			URL::redirect('/Access/index');
 		}
@@ -40,7 +40,7 @@ class AccessC extends Controller {
 			URL::redirect('');
 		}
 		$current_user = $session->User;
-		if(!$current_user->has_access('access_editor')) {
+		if(!$current_user->has_access('edit_access')) {
 			Message::add_error("Du har inte access att skapa nya rättigheter");
 			URL::redirect('');
 		}
@@ -52,7 +52,7 @@ class AccessC extends Controller {
 	public function make($params) {
 		$this->_access_type('script');
 		global $session;
-		if($session == null || !$session->User->has_access('access_editor')) {
+		if($session == null || !$session->User->has_access('edit_access')) {
 			Message::add_error("Du har inte access att skapa nya rättigheter");
 			URL::redirect('');
 		}
@@ -71,7 +71,7 @@ class AccessC extends Controller {
 	public function modify($params) {
 		$this->_access_type('script');
 		global $session;
-		if($session == null || !$session->User->has_access('access_editor')) {
+		if($session == null || !$session->User->has_access('edit_access')) {
 			Message::add_error("Du har inte access att redigera rättigheter");
 			URL::redirect('');
 		}
