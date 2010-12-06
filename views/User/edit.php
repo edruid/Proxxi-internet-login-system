@@ -3,9 +3,9 @@
 <? else: ?>
 	<h1>Redigera <?=$user?></h1>
 <? endif ?>
-<h2>Persondata</h2>
 <form method="post" action="/User/modify">
 	<fieldset>
+		<legend>Persondata</legend>
 		<input type="hidden" name="user" value="<?=$user->id?>" />
 		<table>
 			<? if($admin): ?>
@@ -101,4 +101,8 @@
 <?php
 new UserSettingC('edit');
 $this->_print_child();
+if($current_user->has_access('view_access')) {
+	new UserGroupC('edit');
+	$this->_print_child();
+}
 ?>

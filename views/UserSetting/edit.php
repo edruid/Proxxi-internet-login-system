@@ -1,6 +1,6 @@
-<h2>Inställningar</h2>
 <form action="/UserSetting/modify" method="post">
 	<fieldset>
+		<legend>Inställningar</legend>
 		<ul>
 			<? foreach($settings as $setting): ?>
 				<li>

@@ -1,5 +1,6 @@
 <form method="post" action="/User/make">
 	<fieldset>
+		<legend>Skapa Användare</legend>
 		<table>
 			<tr>
 				<th>Användarnamn</th>
