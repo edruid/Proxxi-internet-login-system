@@ -13,5 +13,9 @@ class Access extends BasicObject {
 	public function __toString() {
 		return (string)$this->name;
 	}
+
+	public static function from_code_name($code_name) {
+		return static::from_field('code_name', $code_name);
+	}
 }
 ?>

@@ -27,18 +27,33 @@ class User extends BasicObject {
 	}
 	
 	public function has_access($access) {
-		$access = Access::count(array(
-			'code_name' => $access,
-			'@or:1' => array(
-				'GroupAccess.valid_until:<' => date('Y-m-d h:i:s'),
-				'GroupAccess.permanent' => true,
-			),
-			'@or:2' => array(
-				'GroupAccess.Group.UserGroup.valid_until:<' => date('Y-m-d h:i:s'),
-				'GroupAccess.Group.UserGroup.permanent' => true,
-			),
-			'GroupAccess.Group.UserGroup.user_id' => $this->id,
-		));
+		if(is_numeric($access)) {
+			$access = GroupAccess::count(array(
+				'access_id' => $access,
+				'@or:1' => array(
+					'valid_until:<' => date('Y-m-d h:i:s'),
+					'permanent' => true,
+				),
+				'@or:2' => array(
+					'Group.UserGroup.valid_until:<' => date('Y-m-d h:i:s'),
+					'Group.UserGroup.permanent' => true,
+				),
+				'Group.UserGroup.user_id' => $this->id,
+			));
+		} else {
+			$access = Access::count(array(
+				'code_name' => $access,
+				'@or:1' => array(
+					'GroupAccess.valid_until:<' => date('Y-m-d h:i:s'),
+					'GroupAccess.permanent' => true,
+				),
+				'@or:2' => array(
+					'GroupAccess.Group.UserGroup.valid_until:<' => date('Y-m-d h:i:s'),
+					'GroupAccess.Group.UserGroup.permanent' => true,
+				),
+				'GroupAccess.Group.UserGroup.user_id' => $this->id,
+			));
+		}
 		return 1 == $access;
 	}
 
@@ -46,6 +61,17 @@ class User extends BasicObject {
 		return Setting::count(array(
 			'code_name' => $setting,
 			'UserSetting.user_id' => $this->id,
+		));
+	}
+
+	public function in_group($group) {
+		return UserGroup::count(array(
+			'user_id' => $this->id,
+			'group_id' => $group->id,
+			'@or' => array(
+				'permanent' => true,
+				'valid_until:>=' => date('Y-m-d h:i:s'),
+			),
 		));
 	}
 

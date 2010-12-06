@@ -14,5 +14,26 @@ class Group extends BasicObject {
 	public function __toString() {
 		return (string)$this->name;
 	}
+
+	public function has_access($access) {
+		$data = GroupAccess::selection(array(
+			'group_id' => $this->id,
+			'Access.code_name' => $access,
+			'@or' => array(
+				'permanent' => 1,
+				'valid_until:>=' => date('Y-m-d h:i:s'),
+			)
+		));
+		return array_shift($data);
+	}
+
+	public function may_grant($user) {
+		foreach($this->GrantPrivilage() as $priv) {
+			if($user->has_access($priv->access_id)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
 ?>

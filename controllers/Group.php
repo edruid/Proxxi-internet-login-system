@@ -1,8 +1,14 @@
 <?php
 class GroupC extends Controller {
+	protected $_default_site = 'index';
 	public function index($params) {
 		$this->_access_type('html');
 		global $session;
+		if($session == null) {
+			Message::add_error('Du måste vara inloggad först.');
+			URL::redirect('');
+		}
+		$this->_register('current_user', $session->User);
 		$this->_register('groups', Group::selection(array(
 			'@order' => 'name',
 		)));
@@ -13,12 +19,12 @@ class GroupC extends Controller {
 	public function edit($params) {
 		$this->_access_type('html');
 		global $session;
-		if($session == null || !$session->User->has_access('group_editor')) {
+		if($session == null || !$session->User->has_access('edit_group')) {
 			Message::add_error("Du har inte access att redigera grupper");
 			URL::redirect('');
 		}
-		$group = Group::from_id(ClientData::post(array_shift($group)));
-		if(!$group) {
+		$group = Group::from_id(array_shift($params));
+		if($group == null) {
 			Message::add_error("Gruppen du försöker redigera finns inte");
 			URL::redirect('/Group/index');
 		}
@@ -30,7 +36,7 @@ class GroupC extends Controller {
 	public function create($params) {
 		$this->_access_type('html');
 		global $session;
-		if($session == null || !$session->User->has_access('group_editor')) {
+		if($session == null || !$session->User->has_access('edit_group')) {
 			Message::add_error("Du har inte access att skapa nya grupper");
 			URL::redirect('');
 		}
@@ -41,7 +47,7 @@ class GroupC extends Controller {
 	public function make($params) {
 		$this->_access_type('script');
 		global $session;
-		if($session == null || !$session->User->has_access('group_editor')) {
+		if($session == null || !$session->User->has_access('edit_group')) {
 			Message::add_error("Du har inte access att skapa nya grupper");
 			URL::redirect('');
 		}
@@ -59,7 +65,7 @@ class GroupC extends Controller {
 	public function modify($params) {
 		$this->_access_type('script');
 		global $session;
-		if($session == null || !$session->User->has_access('group_editor')) {
+		if($session == null || !$session->User->has_access('edit_group')) {
 			Message::add_error("Du har inte access att redigera grupper");
 			URL::redirect('');
 		}
