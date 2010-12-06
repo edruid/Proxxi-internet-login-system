@@ -43,3 +43,10 @@ function ajax_create() {
 	return xmlHttp;
 }
 
+function toggle_disable(element, enabled) {
+	if(enabled) {
+		element.disabled = "";
+	} else {
+		element.disabled = "disabled";
+	}
+}
