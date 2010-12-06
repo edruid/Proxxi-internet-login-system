@@ -6,6 +6,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 		<link type="text/css" rel="stylesheet" href="/style.css" />
 		<script type="text/javascript" src="/js/sort.js"></script>
+		<script type="text/javascript" src="/js/dom.js"></script>
 	</head>
 	<body>
 		<?php
