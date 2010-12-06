@@ -9,6 +9,9 @@ class LayoutC extends Controller {
 			$this->_register('title', 'Pils - '.$this->_get('title'));
 		}
 		$this->_register('session', $session);
+		if($session!= null) {
+			$this->_register('current_user', $session->user);
+		}
 		$this->_display('html');
 	}
 }
