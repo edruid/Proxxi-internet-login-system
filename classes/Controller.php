@@ -88,10 +88,10 @@ class Controller {
 		require $file;
 	}
 
-	protected function _display($view) {
+	protected static function _display($view) {
 		$file = get_called_class();
 		if(!$view) {
-			$this->_stack(null);
+			self::_stack(null);
 			return;
 		}
 		if(substr($file, -1, 1) == 'C') {
