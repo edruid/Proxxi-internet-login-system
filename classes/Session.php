@@ -9,5 +9,18 @@ class Session extends BasicObject {
 	protected static function table_name() {
 		return 'sessions';
 	}
+
+	public function __get($key) {
+		switch($key) {
+			case 'user_id':
+				return $this->_data['user_id'];
+			default:
+				return parent::__get($key);
+		}
+	}
+
+	public function __toString() {
+		return $this->mac;
+	}
 }
 ?>
