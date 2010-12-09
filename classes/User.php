@@ -25,7 +25,7 @@ class User extends BasicObject {
 	public static function from_username($username) {
 		return parent::from_field('username', $username);
 	}
-	
+
 	public function has_access($access) {
 		if(is_numeric($access)) {
 			$access = GroupAccess::count(array(
@@ -73,6 +73,16 @@ class User extends BasicObject {
 				'valid_until:>=' => date('Y-m-d h:i:s'),
 			),
 		));
+	}
+
+	public function is_member($date = null) {
+		if($date == null) {
+			$date = date('Y-m-d');
+		}
+		return 0 < count($this->Membership(array(
+			'start:<=' => $date,
+			'end:>=' => $date,
+		)));
 	}
 
 	public function may_be_edited($user) {
@@ -169,7 +179,7 @@ class User extends BasicObject {
 				}
 				require_once("utils/createlm.php");
 				$hsh = new smbHash();
-				parent::__set('nthash', $hsh->nthash($value));			
+				parent::__set('nthash', $hsh->nthash($value));
 				$value = crypt($value, '$5$rounds=5000$'.rand());
 				break;
 			case 'nthash':
