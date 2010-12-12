@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
 		<title><?=$this->_get('title')?></title>
-		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 		<link type="text/css" rel="stylesheet" href="/style.css" />
 		<script type="text/javascript" src="/js/sort.js"></script>
 		<script type="text/javascript" src="/js/dom.js"></script>

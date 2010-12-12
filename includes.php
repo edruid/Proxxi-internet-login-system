@@ -1,4 +1,4 @@
-<?
+<?php
 // Get settings
 require_once "settings.php";
 
