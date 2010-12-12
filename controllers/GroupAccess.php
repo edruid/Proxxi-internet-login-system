@@ -43,7 +43,7 @@ class GroupAccessC extends Controller {
 		}
 		$accesses = Access::selection();
 		foreach($accesses as $access) {
-			if(!array_key_exists($access->id, $group_accesses) && ClientData::post('permanent') == 'off') {
+			if(!array_key_exists($access->id, $group_accesses) && ClientData::post($access->code_name) == 'off') {
 				continue;
 			}
 			if(!array_key_exists($access->id, $group_accesses)) {
@@ -67,8 +67,6 @@ class GroupAccessC extends Controller {
 					$group_access->commit();
 					break;
 				default:
-					$t = ClientData::post('permanent');
-					var_dump($t);
 					throw new Exception("Failed to parse data for access: \"$access\". Are you messing with the forms?");
 			}
 		}
