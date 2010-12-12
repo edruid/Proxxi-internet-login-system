@@ -34,7 +34,7 @@ class Controller {
 			throw new Exception("Trying to access disalowed site");
 		}
 		if(!method_exists($this, $site)) {
-			throw new Exception("No such site: \"$site\"");
+			throw new Exception("No such site: \"".get_called_class()."/$site\"");
 		}
 		$this->$site($data);
 	}
