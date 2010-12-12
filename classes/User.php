@@ -35,7 +35,7 @@ class User extends BasicObject {
 					'permanent' => true,
 				),
 				'@or:2' => array(
-					'Group.UserGroup.valid_until:<' => date('Y-m-d h:i:s'),
+					'Group.UserGroup.valid_until:>=' => date('Y-m-d h:i:s'),
 					'Group.UserGroup.permanent' => true,
 				),
 				'Group.UserGroup.user_id' => $this->id,
@@ -44,17 +44,17 @@ class User extends BasicObject {
 			$access = Access::count(array(
 				'code_name' => $access,
 				'@or:1' => array(
-					'GroupAccess.valid_until:<' => date('Y-m-d h:i:s'),
+					'GroupAccess.valid_until:>=' => date('Y-m-d h:i:s'),
 					'GroupAccess.permanent' => true,
 				),
 				'@or:2' => array(
-					'GroupAccess.Group.UserGroup.valid_until:<' => date('Y-m-d h:i:s'),
+					'GroupAccess.Group.UserGroup.valid_until:>=' => date('Y-m-d h:i:s'),
 					'GroupAccess.Group.UserGroup.permanent' => true,
 				),
 				'GroupAccess.Group.UserGroup.user_id' => $this->id,
 			));
 		}
-		return 1 == $access;
+		return 1 <= $access;
 	}
 
 	public function has_setting($setting) {
