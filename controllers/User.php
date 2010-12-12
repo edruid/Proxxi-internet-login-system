@@ -15,11 +15,10 @@ class UserC extends Controller {
 
 	public function edit($params) {
 		$this->_access_type('html');
-		global $session;
+		global $session, $current_user;
 		if($session == null){
 			URL::redirect('');
 		}
-		$current_user = $session->User;
 		$user = User::from_username(array_shift($params));
 		if(!$user) {
 			$this->unknown_user($params);
@@ -28,7 +27,6 @@ class UserC extends Controller {
 		if(!$user->may_be_edited($current_user)) {
 			throw new Exception("You do not have access to edit $user");
 		}
-		$this->_register('current_user', $current_user);
 		$this->_register('user', $user);
 		$admin = $current_user->has_access('edit_user');
 		$this->_register('admin', $admin);
@@ -92,8 +90,6 @@ class UserC extends Controller {
 			URL::redirect("/User/view/{$user->username}");
 		}
 	}
-			
-			
 
 	public function modify($params) {
 		$this->_access_type('script');
