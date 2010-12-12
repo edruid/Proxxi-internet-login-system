@@ -28,12 +28,10 @@ class Group extends BasicObject {
 	}
 
 	public function may_grant($user) {
-		foreach($this->GrantPrivilage() as $priv) {
-			if($user->has_access($priv->access_id)) {
-				return true;
-			}
+		if($user == null) {
+			return false;
 		}
-		return false;
+		return $user->has_access($this->access_id);
 	}
 }
 ?>

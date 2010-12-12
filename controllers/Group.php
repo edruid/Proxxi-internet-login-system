@@ -50,9 +50,16 @@ class GroupC extends Controller {
 			URL::redirect('');
 		}
 		try{
+			$access = new Access();
+			$access->name = 'Grant "'.ClientData::post('name').'"';
+			$access->code_name=rand();
+			$access->commit();
 			$setting = new Group();
 			$setting->name = ClientData::post('name');
+			$setting->access_id = $access->id;
 			$setting->commit();
+			$access->code_name = "grant_{$setting->id}";
+			$access->commit();
 			URL::redirect('/Group/index');
 		} catch(Exception $e) {
 			Message::add_error($e->getMessage());
@@ -74,7 +81,10 @@ class GroupC extends Controller {
 		}
 		try {
 			$group->name= ClientData::post('name');
+			$access = $groupp->Access;
+			$access->name = "Grant \"{$group->name}\"";
 			$group->commit();
+			$access->commit();
 			Message::add_notice("Gruppen updaterad");
 			URL::redirect('/Group/index');
 		} catch(Exception $e) {

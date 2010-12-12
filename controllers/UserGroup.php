@@ -16,7 +16,7 @@ class UserGroupC extends Controller {
 
 	public function modify($params) {
 		$this->_access_type('script');
-		global $session;
+		global $session, $current_user;
 		if(!$session) {
 			Message::add_error("Du måste vara inloggad för att ändra gupper.");
 			URL::redirect('');
@@ -26,7 +26,6 @@ class UserGroupC extends Controller {
 			Message::add_error('Okänd användare');
 			URL::redirect('');
 		}
-		$current_user = $session->User;
 		$groups = Group::selection();
 		$user_groups_tmp = $user->UserGroup();
 		$user_groups = array();
@@ -36,17 +35,32 @@ class UserGroupC extends Controller {
 		unset($user_groups_tmp);
 		foreach($groups as $group) {
 			if($group->may_grant($current_user)) {
-				if(array_key_exists($group->id, $user_groups)) {
-					if(ClientData::post($group->code_name) != 'on') {
-						$user_groups[$group->id]->delete();
-					}
+				if(!array_key_exists($group->id, $user_groups) &&
+						ClientData::post($group->id) == 'off') {
+					continue;
+				}
+				if(!array_key_exists($group->id, $user_groups)) {
+					$user_group = new UserGroup();
+					$user_group->user_id = $user->id;
+					$user_group->group_id = $group->id;
 				} else {
-					if(ClientData::post($group->code_name) == 'on') {
-						$user_group = new UserGroup();
-						$user_group->user_id = $user->id;
-						$user_group->group_id = $group->id;
+					$user_group = $user_groups[$group->id];
+				}
+				switch(ClientData::post($group->id)){
+					case 'off':
+						$user_group->delete();
+						break;
+					case 'permanent':
+						$user_group->permanent = true;
 						$user_group->commit();
-					}
+						break;
+					case 'timed':
+						$user_group->permanent = false;
+						$user_group->valid_until = ClientData::post("group_{$group->id}/valid_until");
+						$user_group->commit();
+						break;
+					default:
+						throw new Exception("Failed to parse data for access: \"$group\". Are you messing with the forms?");
 				}
 			}
 		}
