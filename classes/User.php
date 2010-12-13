@@ -177,7 +177,7 @@ class User extends BasicObject {
 				if(strlen($value) < 5) {
 					throw new UserException('Lösenordet är för kort');
 				}
-				require_once("utils/createlm.php");
+				require_once("../lib/createlm.php");
 				$hsh = new smbHash();
 				parent::__set('nthash', $hsh->nthash($value));
 				$value = crypt($value, '$5$rounds=5000$'.rand());
