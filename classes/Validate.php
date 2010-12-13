@@ -14,6 +14,7 @@ class Validate {
 			// no @ sign
 			return false;
 		}
+		$use_dns_lookup = $use_dns_lookup && $_SERVER['SERVER_ADDR'] != '127.0.0.1'; // FIXME: hack to get email validation to work while developer is offline.
 		$domain = substr($email, $atIndex+1);
 		$local = substr($email, 0, $atIndex);
 		$localLen = strlen($local);
