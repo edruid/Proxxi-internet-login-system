@@ -62,7 +62,7 @@
 									<input type="text"
 										name="group_<?=$group->id?>/valid_until"
 										id="group_<?=$group->id?>"
-										<?= ($user_group==null || !$user_group->permanent)?
+										<?= ($user_group!=null && !$user_group->permanent)?
 											"value=\"{$user_group->valid_until}\"":
 											'disabled="disabled"'
 										?>
