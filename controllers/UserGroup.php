@@ -4,7 +4,7 @@ class UserGroupC extends Controller {
 		$this->_access_type('html');
 		global $current_user;
 		$user = array_shift($params);
-		if($current_user->has_access('view_access')) {
+		if($current_user->may_grant()) {
 			$this->_register('groups', Group::selection(array(
 				'@order' => 'name',
 			)));
