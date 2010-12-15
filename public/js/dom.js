@@ -50,3 +50,11 @@ function toggle_disable(element, enabled) {
 		element.disabled = "disabled";
 	}
 }
+
+function toggle_hidden(node) {
+	if(node.className.match(/\bhidden\b/)){
+		node.className = node.className.replace(/\bhidden\b/, '');
+	} else {
+		node.className += ' hidden';
+	}
+}

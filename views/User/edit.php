@@ -5,7 +5,7 @@
 <? endif ?>
 <form method="post" action="/User/modify">
 	<fieldset>
-		<legend>Persondata</legend>
+		<legend onclick="toggle_hidden(this.parentNode);">Persondata</legend>
 		<input type="hidden" name="user" value="<?=$user->id?>" />
 		<table>
 			<? if($admin): ?>

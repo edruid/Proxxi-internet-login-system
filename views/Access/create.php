@@ -1,6 +1,6 @@
-<h1>Skapa ny rättighet</h1>
 <form action="/Access/make" method="post">
 	<fieldset>
+		<legend>Skapa ny rättighet</legend>
 		<table>
 			<tr>
 				<th>Namn</th>

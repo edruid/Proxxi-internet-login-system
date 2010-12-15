@@ -1,6 +1,6 @@
 <form action="/UserSetting/modify" method="post">
 	<fieldset>
-		<legend>Inställningar</legend>
+		<legend onclick="toggle_hidden(this.parentNode);">Inställningar</legend>
 		<ul>
 			<? foreach($settings as $setting): ?>
 				<li>

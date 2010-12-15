@@ -77,3 +77,10 @@ fieldset {
 input:disabled {
 	background-color: #CCC;
 }
+
+fieldset.hidden * {
+	display: none;
+}
+fieldset.hidden > legend {
+	display: block;
+}

@@ -1,6 +1,6 @@
 <form action="/UserGroup/modify/<?=$user->username?>" method="post">
-	<fieldset>
-		<legend>Rättighetsgrupper</legend>
+	<fieldset class="hidden">
+		<legend onclick="toggle_hidden(this.parentNode)">Rättighetsgrupper</legend>
 		<table>
 			<thead>
 				<tr>
