@@ -1,5 +1,5 @@
 <form action="/UserGroup/modify/<?=$user->username?>" method="post">
-	<fieldset class="hidden">
+	<fieldset>
 		<legend onclick="toggle_hidden(this.parentNode)">Rättighetsgrupper</legend>
 		<table>
 			<thead>
@@ -23,10 +23,12 @@
 										<input type="radio"
 											name="<?=$group->id?>"
 											value="off"
-											<?= $user_group == null ?
-												'checked="checked"' :
-												''
-											?>
+											<? if($user_group == null): ?>
+												checked="checked"
+											<? endif ?>
+											<? if(!$group->may_grant($current_user)): ?>
+												disabled="disabled"
+											<? endif ?>
 											onchange="toggle_disable(document.getElementById('group_<?=$group->id?>'), !this.checked);"
 										/>
 										Ej access
@@ -37,10 +39,12 @@
 										<input type="radio"
 											name="<?=$group->id?>"
 											value="permanent"
-											<?= ($user_group != null && $user_group->permanent) ?
-												'checked="checked"' :
-												''
-											?>
+											<? if($user_group != null && $user_group->permanent): ?>
+												checked="checked"
+											<? endif ?>
+											<? if(!$group->may_grant($current_user)): ?>
+												disabled="disabled"
+											<? endif ?>
 											onchange="toggle_disable(document.getElementById('group_<?=$group->id?>'), !this.checked);"
 										/>
 										Permanent access
@@ -51,10 +55,12 @@
 										<input type="radio"
 											name="<?=$group->id?>"
 											value="timed"
-											<?= ($user_group != null && !$user_group->permanent) ?
-												'checked="checked"' :
-												''
-											?>
+											<? if($user_group != null && !$user_group->permanent): ?>
+												checked="checked"
+											<? endif ?>
+											<? if(!$group->may_grant($current_user)): ?>
+												disabled="disabled"
+											<? endif ?>
 											onchange="toggle_disable(document.getElementById('group_<?=$group->id?>'), this.checked);"
 										/>
 										Tidsbegränsad till:
@@ -62,10 +68,14 @@
 									<input type="text"
 										name="group_<?=$group->id?>/valid_until"
 										id="group_<?=$group->id?>"
-										<?= ($user_group!=null && !$user_group->permanent)?
-											"value=\"{$user_group->valid_until}\"":
-											'disabled="disabled"'
-										?>
+										<? if($user_group!=null && !$user_group->permanent): ?>
+											value="<?=$user_group->valid_until?>"
+											<? if(!$group->may_grant($current_user)): ?>
+												disabled="disabled"
+											<? endif ?>
+										<? else: ?>
+											disabled="disabled"
+										<? endif ?>
 									/>	
 								</li>
 							</ul>
