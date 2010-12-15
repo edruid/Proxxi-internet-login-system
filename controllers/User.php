@@ -87,7 +87,8 @@ class UserC extends Controller {
 			ClientData::defaults_set($data);
 			URL::redirect("/User/create");
 		} else {
-			URL::redirect("/User/view/{$user->username}");
+			Message::add_notice("Användare {$user->username} skapad");
+			URL::redirect("/User/edit/{$user->username}");
 		}
 	}
 
