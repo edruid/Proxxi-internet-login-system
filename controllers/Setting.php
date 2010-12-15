@@ -13,7 +13,7 @@ class SettingC extends Controller {
 	public function edit($params) {
 		$this->_access_type('html');
 		global $session;
-		if($session == null || !$session->User->has_access('setting_editor')) {
+		if($session == null || !$session->User->has_access('edit_setting')) {
 			Message::add_error("Du har inte access att redigera inställningar");
 			URL::redirect('');
 		}
@@ -24,7 +24,7 @@ class SettingC extends Controller {
 	public function create($params) {
 		$this->_access_type('html');
 		global $session;
-		if($session == null || !$session->User->has_access('setting_editor')) {
+		if($session == null || !$session->User->has_access('edit_setting')) {
 			Message::add_error("Du har inte access att skapa nya inställningar");
 			URL::redirect('');
 		}
@@ -35,7 +35,7 @@ class SettingC extends Controller {
 	public function make($params) {
 		$this->_access_type('script');
 		global $session;
-		if($session == null || !$session->User->has_access('setting_editor')) {
+		if($session == null || !$session->User->has_access('edit_setting')) {
 			Message::add_error("Du har inte access att skapa nya inställningar");
 			URL::redirect('');
 		}
@@ -54,7 +54,7 @@ class SettingC extends Controller {
 	public function modify($params) {
 		$this->_access_type('script');
 		global $session;
-		if($session == null || !$session->User->has_access('setting_editor')) {
+		if($session == null || !$session->User->has_access('edit_setting')) {
 			Message::add_error("Du har inte access att redigera inställningar");
 			URL::redirect('');
 		}

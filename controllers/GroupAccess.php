@@ -13,7 +13,7 @@ class GroupAccessC extends Controller {
 	public function edit($params) {
 		$this->_access_type('html');
 		global $session;
-		if($session == null || !$session->User->has_access('group_access_editor')) {
+		if($session == null || !$session->User->has_access('edit_group_access')) {
 			Message::add_error("Du har inte access att redigera grupp accesser");
 			URL::redirect('');
 		}
@@ -32,7 +32,7 @@ class GroupAccessC extends Controller {
 	public function modify($params) {
 		$this->_access_type('script');
 		global $session;
-		if($session == null || !$session->User->has_access('group_access_editor')) {
+		if($session == null || !$session->User->has_access('edit_group_access')) {
 			Message::add_error("Du har inte access att redigera grupp accesser");
 			URL::redirect('');
 		}

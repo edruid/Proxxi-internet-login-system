@@ -167,3 +167,14 @@ CREATE TABLE `voters` (
 	FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO accesses set name='Redigera användare', code_name='edit_user';
+INSERT INTO accesses set name='Redigera settings', code_name='edit_setting';
+INSERT INTO accesses set name='Redigera rättigheter', code_name='edit_access';
+INSERT INTO accesses set name='Redigera grupper', code_name='edit_group';
+INSERT INTO accesses set name='Ge rättighet till grupp', code_name='edit_group_access';
+INSERT INTO accesses set name='Se användare', code_name='view_user';
+
+INSERT INTO settings set name='Visa när jag är i lokalen', code_name='show_attendance';
+INSERT INTO settings set name='Visa telefonnummer för andra medlemmar', code_name='show_phone';
+INSERT INTO settings set name='Visa epostadress för andra medlemmar', code_name='show_email';
+
