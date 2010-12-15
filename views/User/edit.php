@@ -99,10 +99,10 @@
 	</fieldset>
 </form>
 <?php
-new UserSettingC('edit');
-$this->_print_child();
-if($current_user->has_access('view_access')) {
-	new UserGroupC('edit');
+if($current_user->id == $user->id) {
+	$this->_print_child();
+}
+if($current_user->may_grant()) {
 	$this->_print_child();
 }
 ?>

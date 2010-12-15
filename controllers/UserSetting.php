@@ -2,8 +2,8 @@
 class UserSettingC extends Controller {
 	public function edit($params) {
 		$this->_access_type('html');
-		$user = $this->_get('user');
-		$current_user = $this->_get('current_user');
+		global $current_user;
+		$user = array_shift($params);
 		if($user->id == $current_user->id) {
 			$this->_register('settings', Setting::selection(array(
 				'@order' => 'name',

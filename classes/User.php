@@ -64,6 +64,22 @@ class User extends BasicObject {
 		));
 	}
 
+	public function may_grant() {
+		$access = Access::count(array(
+			'code_name:like' => 'grant_%',
+			'@or:1' => array(
+				'GroupAccess.valid_until:>=' => date('Y-m-d h:i:s'),
+				'GroupAccess.permanent' => true,
+			),
+			'@or:2' => array(
+				'GroupAccess.Group.UserGroup.valid_until:>=' => date('Y-m-d h:i:s'),
+				'GroupAccess.Group.UserGroup.permanent' => true,
+			),
+			'GroupAccess.Group.UserGroup.user_id' => $this->id,
+		));
+		return 1 <= $access;
+	}
+
 	public function in_group($group) {
 		return UserGroup::count(array(
 			'user_id' => $this->id,

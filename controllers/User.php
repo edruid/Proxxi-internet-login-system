@@ -30,6 +30,12 @@ class UserC extends Controller {
 		$this->_register('user', $user);
 		$admin = $current_user->has_access('edit_user');
 		$this->_register('admin', $admin);
+		if($current_user->may_grant()) {
+			new UserGroupC('edit', array($user));
+		}
+		if($current_user->id == $user->id) {
+			new UserSettingC('edit', array($user));
+		}
 		$this->_display('edit');
 		new LayoutC('html');
 	}

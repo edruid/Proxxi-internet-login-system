@@ -2,8 +2,8 @@
 class UserGroupC extends Controller {
 	public function edit($params) {
 		$this->_access_type('html');
-		$user = $this->_get('user');
-		$current_user = $this->_get('current_user');
+		global $current_user;
+		$user = array_shift($params);
 		if($current_user->has_access('view_access')) {
 			$this->_register('groups', Group::selection(array(
 				'@order' => 'name',
