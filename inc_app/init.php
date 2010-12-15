@@ -1,4 +1,8 @@
 <?php
+// Kill if the server has shorttags disabled
+if(ini_get('short_open_tag') == 0)
+	die("You have to enable <em>'short_open_tag'</em> in your php.ini");
+
 // Cacha headers och innehåll så att vi kan ändra oss och skicka
 // en Location-header även efter att vi börjat eka ut innehåll.
 ob_start();
