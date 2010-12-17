@@ -58,3 +58,26 @@ function toggle_hidden(node) {
 		node.className += ' hidden';
 	}
 }
+
+function fieldset_hider() {
+	var legends = document.getElementsByTagName('legend');
+	for(var i=0; i<legends.length; ++i) {
+		legends[i].onclick = function() {toggle_hidden(this.parentNode)};
+	}
+}
+
+function addLoadEvent(func) {
+	var oldonload = window.onload;
+	if (typeof oldonload != 'function') {
+		window.onload = func;
+	} else {
+		window.onload = function() {
+			if (oldonload) {
+				oldonload();
+			}
+			func();
+		}
+	}
+}
+
+addLoadEvent(fieldset_hider);

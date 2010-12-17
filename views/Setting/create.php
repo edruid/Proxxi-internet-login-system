@@ -1,6 +1,6 @@
 <form action="/Setting/make" method="post">
 	<fieldset>
-		<legend onclick="toggle_hidden(this.parentNode);">Skapa Inställning</legend>
+		<legend>Skapa Inställning</legend>
 		<table>
 			<tr title="Namnet på inställningen som syns mot användarna">
 				<th>Namn</th>
