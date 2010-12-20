@@ -5,7 +5,7 @@
 <? endif ?>
 <form method="post" action="/User/modify">
 	<fieldset>
-		<legend onclick="toggle_hidden(this.parentNode);">Persondata</legend>
+		<legend>Persondata</legend>
 		<input type="hidden" name="user" value="<?=$user->id?>" />
 		<table>
 			<? if($admin): ?>
@@ -100,6 +100,9 @@
 </form>
 <?php
 if($current_user->id == $user->id) {
+	$this->_print_child();
+}
+if($current_user->has_access('edit_membership')) {
 	$this->_print_child();
 }
 if($current_user->may_grant()) {

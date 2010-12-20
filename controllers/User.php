@@ -33,6 +33,9 @@ class UserC extends Controller {
 		if($current_user->may_grant()) {
 			new UserGroupC('edit', array($user));
 		}
+		if($current_user->has_access('edit_membership')) {
+			new MembershipC('create', array($user));
+		}
 		if($current_user->id == $user->id) {
 			new UserSettingC('edit', array($user));
 		}
