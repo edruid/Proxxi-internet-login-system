@@ -457,7 +457,7 @@ abstract class BasicObject {
 		return $result;
 	}
 
-	public static function selection($params = array()){
+	public static function selection($params = array(), $debug=false){
 		global $db;
 		$data = self::build_query($params, '*');
 		$query = array_shift($data);
@@ -470,6 +470,10 @@ abstract class BasicObject {
 		}
 		if(count($data)>1) {
 			call_user_func_array(array($stmt, 'bind_param'), $data);
+		}
+		if($debug) {
+			echo "<pre>$query</pre>";
+			var_dump($data);
 		}
 		$stmt->execute();
 		$stmt->store_result();
