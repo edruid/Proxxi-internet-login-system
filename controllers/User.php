@@ -1,5 +1,28 @@
 <?php
 class UserC extends Controller {
+	public function index($params) {
+		$this->_access_type('html');
+		global $current_user;
+		$params = array();
+		$params['@order'] = array(
+			'surname',
+			'first_name',
+		);
+		$start = array_shift($params);
+		if(is_numeric($start)) {
+			$params['@limit'] = array($start, 100);
+		}
+		if($current_user == null || !$current_user->has_access('view_user')) {
+			$params['Setting.code_name'] = 'show_attendance';
+			$params['Membership.end:>='] = date('Y-12-31');
+		}
+		$users = User::selection($params);
+		$this->_register('users', $users);
+		$this->_register('title', 'Användare');
+		$this->_display('index');
+		new LayoutC('html');
+	}
+
 	public function view($params) {
 		$this->_access_type('html');
 		$user = User::from_username(array_shift($params));
