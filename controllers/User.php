@@ -1,6 +1,6 @@
 <?php
 class UserC extends Controller {
-	public function index($params) {
+	public function index($input) {
 		$this->_access_type('html');
 		global $current_user;
 		$params = array();
@@ -8,13 +8,18 @@ class UserC extends Controller {
 			'surname',
 			'first_name',
 		);
-		$start = array_shift($params);
+		if($current_user == null || !$current_user->has_access('view_user')) {
+			$params['UserSetting.Setting.code_name'] = 'show_attendance';
+			$params['Membership.end:>='] = date('Y-12-31');
+		}
+		$count = User::count($params);
+		$this->_register('count', $count);
+		$start = array_shift($input);
 		if(is_numeric($start)) {
 			$params['@limit'] = array($start, 100);
-		}
-		if($current_user == null || !$current_user->has_access('view_user')) {
-			$params['Setting.code_name'] = 'show_attendance';
-			$params['Membership.end:>='] = date('Y-12-31');
+			$this->_register('start', $start);
+		} else {
+			$this->_register('start', 0);
 		}
 		$users = User::selection($params);
 		$this->_register('users', $users);
