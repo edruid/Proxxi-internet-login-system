@@ -448,13 +448,14 @@ abstract class BasicObject {
 		$data = static::build_query($params, 'count');
 		$query = array_shift($data);
 		if($debug) {
-			echo "<pre>$query</pre>";
+			echo "<pre>$query</pre>\n";
+			var_dump($data);
 		}
 		$stmt = $db->prepare($query);
 		foreach($data as $key => $value) {
 			$data[$key] = &$data[$key];
 		}
-		if(count($params)!=0) {
+		if(count($data)>1) {
 			call_user_func_array(array($stmt, 'bind_param'), $data);
 		}
 		$stmt->execute();
