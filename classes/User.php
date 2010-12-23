@@ -1,6 +1,6 @@
 <?php
 
-class User extends BasicObject {
+class User extends PersistantBasicObject {
 
 	/**
 	 * Used by BasicObject to determine the table name.

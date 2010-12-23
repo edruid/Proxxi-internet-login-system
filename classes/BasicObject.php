@@ -685,9 +685,12 @@ abstract class BasicObject {
 		return $types;
 	}
 
-	private static function columns($table){
+	protected static function columns($table){
 		global $db;
 		static $columns = array();
+		if(class_exists($table) && is_subclass_of($table, 'BasicObject')){
+			$table = $table::table_name();
+		}
 		if(!isset($columns[$table])){
 			if(!self::is_table($table)){
 				throw new Exception("No such table '$table'");
@@ -795,7 +798,7 @@ abstract class BasicObject {
 		}
 	}
 
-	private static function in_table($column, $table){
+	protected static function in_table($column, $table){
 		static $tables = array();
 		if(!isset($tables[$table])){
 			$tables[$table] = self::columns($table);
