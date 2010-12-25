@@ -1,4 +1,9 @@
 <h1>Rättigheter</h1>
+<? if($session && $current_user->has_access('edit_access')): ?>
+	<p>
+		<a href="/Access/create">Skapa ny rättighet</a>
+	</p>
+<? endif ?>
 <table>
 	<? foreach($accesses as $access): ?>
 		<tr>

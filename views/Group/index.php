@@ -1,4 +1,9 @@
 <h1>Grupper</h1>
+<? if($session && $current_user->has_access('edit_group')): ?>
+	<p>
+		<a href="/Group/create">Skapa ny grupp</a>
+	</p>
+<? endif ?>
 <table>
 	<? foreach($groups as $group): ?>
 		<tr>
