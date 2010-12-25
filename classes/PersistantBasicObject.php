@@ -35,18 +35,20 @@ abstract class PersistantBasicObject extends BasicObject {
 	}
 
 	public function commit() {
-		if(count($this->_persistant_data) > 0) {
-			$class_name = 'Persistant'.get_called_class();
-			static::load_class($class_name);
-			$persist = new $class_name();
-			foreach($this->persistant_fields() as $field) {
-				if(array_key_exists($field, $this->_persistant_data)) {
-					$persist->$field = $this->_persistant_data[$field];
-				} else {
-					$persist->$field = $this->$field;
+		if($this->_exists) {
+			if(count($this->_persistant_data) > 0) {
+				$class_name = 'Persistant'.get_called_class();
+				static::load_class($class_name);
+				$persist = new $class_name();
+				foreach($this->persistant_fields() as $field) {
+					if(array_key_exists($field, $this->_persistant_data)) {
+						$persist->$field = $this->_persistant_data[$field];
+					} else {
+						$persist->$field = $this->$field;
+					}
 				}
+				$persist->commit();
 			}
-			$persist->commit();
 		}
 		parent::commit();
 	}
