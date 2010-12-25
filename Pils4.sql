@@ -1,19 +1,36 @@
+SELECT "dropping user_groups";
 DROP TABLE IF EXISTS `user_groups`;
+SELECT "dropping group_access";
 DROP TABLE IF EXISTS `group_access`;
+SELECT "dropping memberships";
 DROP TABLE IF EXISTS `memberships`;
+SELECT "dropping attendance";
 DROP TABLE IF EXISTS `attendance`;
+SELECT "dropping blocked";
 DROP TABLE IF EXISTS `blocked`;
+SELECT "dropping karaoke_queue";
 DROP TABLE IF EXISTS `karaoke_queue`;
+SELECT "dropping log";
 DROP TABLE IF EXISTS `log`;
+SELECT "dropping sessions";
 DROP TABLE IF EXISTS `sessions`;
+SELECT "dropping poll_alternatives";
 DROP TABLE IF EXISTS `poll_alternatives`;
+SELECT "dropping voters";
 DROP TABLE IF EXISTS `voters`;
+SELECT "dropping polls";
 DROP TABLE IF EXISTS `polls`;
+SELECT "dropping user_settings";
 DROP TABLE IF EXISTS `user_settings`;
-DROP TABLE IF EXISTS `accesses`;
+SELECT "dropping group_access";
 DROP TABLE IF EXISTS `groups`;
+SELECT "dropping accesses";
+DROP TABLE IF EXISTS `accesses`;
+SELECT "dropping settings";
 DROP TABLE IF EXISTS `settings`;
+SELECT "dropping persistant_users";
 DROP TABLE IF EXISTS `persistant_users`;
+SELECT "dropping users";
 DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
