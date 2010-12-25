@@ -24,7 +24,9 @@
 			<? if($user->has_access('multiple_login')): ?>
 				<li><a href="/Session/remote_login">Logga in annan dator</a></li>
 			<? endif ?>
-			<li><a href="/Attendance/index">Lista närvarande</a></li>
+			<? if($user->is_member()): ?>
+				<li><a href="/Attendance/index">Lista närvarande</a></li>
+			<? endif ?>
 			<? if($user->has_access('view_user')): ?>
 				<li><a href="/User/index">Lista användare</a></li>
 				<li><a href="/Attendance/chart">Närvarodiagram</a></li>
