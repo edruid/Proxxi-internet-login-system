@@ -55,15 +55,33 @@ p.error {
 }
 
 #content, #messages{
-	margin-left: 16em;
+	float:left;
+/*	margin-left: 16em;*/
+}
+
+#footer {
+	clear:both;
+	padding: 0.5ex 1em;
 }
 
 .menu {
-	position: absolute;
+/*	position: absolute;
 	left: 1em;
-	top: 3ex;
+	top: 3ex;*/
 	display: inline;
+	float: left;
+	width: 202px;
+	margin-right:1em;
 }
+
+.menu > *{
+	max-width: 14em;
+}
+
+.menu > * *{
+	max-width: 12em;
+}
+	
 
 legend {
 	font-weight: bold;

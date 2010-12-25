@@ -24,6 +24,9 @@
 				$this->_print_child();
 			?>
 		</div>
+		<div id="footer">
+			<p>Systemet är skapat av Eric Druid (druid at proxxi dot org) 0739586929</p>
+		</div>
 	</body>
 </html>
 
