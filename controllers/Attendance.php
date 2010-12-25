@@ -13,6 +13,9 @@ class AttendanceC extends Controller {
 			$attendance->day = ClientData::post('day');
 			$attendance->user = ClientData::post('username');
 			$attendance->commit();
+		} catch(WarningException $e) {
+			Message::add_warning($e->getMessage());
+			URL::redirect();
 		} catch(Exception $e) {
 			Message::add_error($e->getMessage());
 			URL::redirect();

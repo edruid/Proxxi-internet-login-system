@@ -13,13 +13,13 @@
 			new MenuC('menu');
 			$this->_print_child();
 		?>
-		<div id="messages">
-			<?php
-				new MessageC('index');
-				$this->_print_child();
-			?>
-		</div>
 		<div id="content">
+			<div id="messages">
+				<?php
+					new MessageC('index');
+					$this->_print_child();
+				?>
+			</div>
 			<?php
 				$this->_print_child();
 			?>

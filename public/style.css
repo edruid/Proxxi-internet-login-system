@@ -37,6 +37,9 @@ p.message {
 .notice {
 	background-color: #0f0;
 }
+.warning {
+	background-color: yellow;
+}
 p.error {
 	background-color: red;
 }
@@ -54,7 +57,7 @@ p.error {
 	white-space: pre;
 }
 
-#content, #messages{
+#content{
 	float:left;
 /*	margin-left: 16em;*/
 }

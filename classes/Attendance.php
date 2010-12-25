@@ -50,7 +50,7 @@ class Attendance extends BasicObject {
 					'user_id' => $this->user_id,
 					'day' => $this->day,
 				)) > 0) {
-			throw new Exception("{$this->User->username} är redan rapporterad som här.");
+			throw new WarningException("{$this->User->username} är redan rapporterad som här.");
 		}
 		return parent::commit();
 	}
