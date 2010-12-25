@@ -16,6 +16,7 @@ class SessionC extends Controller {
 			Message::add_error('Fel användarnamn eller lösenord');
 			URL::redirect($_SERVER['HTTP_REFERER']);
 		}
+		Session::clear_old_sessions();
 		$session = new Session();
 		$session->user_id = $user->id;
 		$session->session_id = session_id();
@@ -30,6 +31,7 @@ class SessionC extends Controller {
 		$this->_access_type('script');
 		$session = Session::from_id(session_id());
 		$session->delete();
+		session_destroy();
 		URL::redirect('');
 	}
 }
