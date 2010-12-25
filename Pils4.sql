@@ -168,7 +168,7 @@ CREATE TABLE `log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `sessions` (
-	`session_id` int(10) unsigned NOT NULL,
+	`session_id` varchar(100) NOT NULL,
 	`user_id` int(10) unsigned NOT NULL,
 	`mac` varchar(17) NOT NULL,
 	`time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -216,3 +216,8 @@ INSERT INTO settings set name='Visa när jag är i lokalen', code_name='show_att
 INSERT INTO settings set name='Visa telefonnummer för andra medlemmar', code_name='show_phone';
 INSERT INTO settings set name='Visa epostadress för andra medlemmar', code_name='show_email';
 
+INSERT INTO accesses set name='Grant "Admin"', code_name='grant_1';
+INSERT INTO groups set name="Admin", access_id = (SELECT access_id from accesses where code_name="grant_1");
+
+INSERT INTO group_access set access_id = (SELECT access_id from accesses where code_name="edit_group_access"), group_id = 1, permanent = true;
+INSERT INTO group_access set access_id = (SELECT access_id from accesses where code_name="edit_group"), group_id = 1, permanent = true;
