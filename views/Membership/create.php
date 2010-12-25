@@ -20,7 +20,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<? foreach($current_user->Membership(array('@order' => 'end:desc')) as $membership): ?>
+			<? foreach($user->Membership(array('@order' => 'end:desc')) as $membership): ?>
 				<tr>
 					<td><?=$membership->start?></td>
 					<td><?=$membership->end?></td>
