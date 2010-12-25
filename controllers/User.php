@@ -176,7 +176,8 @@ class UserC extends Controller {
 		if(!$error) {
 			try{
 				$user->commit();
-				URL::redirect("/User/view/{$user->username}");
+				Message::add_notice('Medlemsdatat är uppdaterat.');
+				URL::redirect("/User/edit/{$user->username}");
 			} catch(UserException $e) {
 				Message::add_error($e->getMessage());
 			}
