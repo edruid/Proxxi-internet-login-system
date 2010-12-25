@@ -131,11 +131,15 @@ class UserC extends Controller {
 
 	public function modify($params) {
 		$this->_access_type('script');
-		global $session;
+		$error = false;
+		global $session, $current_user;
 		if($session == null){
 			URL::redirect('');
 		}
-		$current_user = $session->User;
+		if(!$current_user->has_password(ClientData::post('old_password'))) {
+			Message::add_error("Fel lösenord.");
+			$error = true;
+		}
 		$user = User::from_id(ClientData::post('user'));
 		if(!$user) {
 			URL::redirect('User/unknown_user');
@@ -160,7 +164,6 @@ class UserC extends Controller {
 			$fields[] = 'person_id_number';
 			$fields[] = 'sex';
 		}
-		$error = false;
 		if(ClientData::post('password') != ClientData::post('confirm_password')) {
 			$error = true;
 			Message::add_error("Lösenorden matchar inte varandra");
