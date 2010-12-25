@@ -1,4 +1,9 @@
 <h1><?=$user->username?></h1>
+<? if($current_user != null && $current_user->has_access('edit_user')): ?>
+	<p>
+		<a href="/User/edit/<?=$user->username?>">Redigera medlemsdata</a>
+	</p>
+<? endif ?>
 <table>
 	<tr>
 		<th>Namn</th>
