@@ -81,3 +81,27 @@ function addLoadEvent(func) {
 }
 
 addLoadEvent(fieldset_hider);
+
+function fixPersonnummer(date_elem, id_elem) {
+	var date_part = date_elem.value;
+	var id_part = id_elem.valueM
+	if(date_part.match(/^\d+$/)) {
+		if(date_part.length == 8) {
+			date_part=date_part.substring(0,4)+'-'+date_part.substring(4,6)+'-'+date_part.substring(6,8);
+			date_elem.value = date_part;
+			return;
+		} else if(date_part.length == 6) {
+			var year = date_part.substring(0,2);
+			var this_year = (new Date()).getFullYear()+'';
+			var cen = this_year.substring(0,2);
+			this_year = this_year.substring(2,4);
+			if(year > this_year) {
+				cen--;
+			}
+			date_part = cen+year+'-'+date_part.substring(2,4)+'-'+date_part.substring(4,6);
+			date_elem.value = date_part;
+			return;
+		}
+	}
+}
+

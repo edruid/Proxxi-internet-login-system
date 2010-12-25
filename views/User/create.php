@@ -17,8 +17,8 @@
 			<tr>
 				<th>Personnummer</th>
 				<td>
-					<input type="text" value="<?=ClientData::defaults('birthdate')?>" name="birthdate" maxlength="10" size="10" /> - 
-					<input type="text" value="<?=ClientData::defaults('person_id_number')?>" name="person_id_number" maxlength="4" size="4" />
+					<input type="text" value="<?=ClientData::defaults('birthdate')?>" name="birthdate" maxlength="10" size="10" onblur="fixPersonnummer(this, document.getElementById('person_id_number'));" /> - 
+					<input type="text" value="<?=ClientData::defaults('person_id_number')?>" id="person_id_number" name="person_id_number" maxlength="4" size="4" />
 				</td>
 			</tr>
 			<tr>
