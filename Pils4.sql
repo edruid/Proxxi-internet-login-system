@@ -72,6 +72,13 @@ CREATE TABLE `persistant_users` (
 	PRIMARY KEY (`_persistant_user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `avatars` (
+	`user_id` int unsigned not null,
+	`avatar` longblob not null,
+	FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
+	PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `settings` (
 	`setting_id` int(10) unsigned not null AUTO_INCREMENT,
 	`name` varchar(100) not null unique,

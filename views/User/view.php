@@ -4,6 +4,7 @@
 		<a href="/User/edit/<?=$user->username?>">Redigera medlemsdata</a>
 	</p>
 <? endif ?>
+<img src="<?=$user->avatar_url?>" alt="<?=$user?>" />
 <table>
 	<tr>
 		<th>Namn</th>

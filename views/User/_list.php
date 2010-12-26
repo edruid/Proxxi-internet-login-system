@@ -4,6 +4,7 @@
 	<? endif ?>
 	<thead>
 		<tr>
+			<th>Avatar</th>
 			<th>Förnamn</th>
 			<th>Efternamn</th>
 			<th>Användarnamn</th>
@@ -13,6 +14,7 @@
 	<tbody>
 		<? foreach($users as $user): ?>
 			<tr>
+				<td><img src="<?=$user->avatar_url?>" alt="<?=$user?>" /></td>
 				<td><?=$user->first_name?></td>
 				<td><?=$user->surname?></td>
 				<td><a href="/User/view/<?=$user->username?>"><?=$user->username?></a></td>

@@ -65,6 +65,7 @@ class UserC extends Controller {
 			new MembershipC('create', array($user));
 		}
 		if($current_user->id == $user->id) {
+			new AvatarC('edit', array($user));
 			new UserSettingC('edit', array($user));
 		}
 		$this->_display('edit');

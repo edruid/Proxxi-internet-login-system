@@ -101,6 +101,7 @@
 <?php
 if($current_user->id == $user->id) {
 	$this->_print_child();
+	$this->_print_child();
 }
 if($current_user->has_access('edit_membership')) {
 	$this->_print_child();

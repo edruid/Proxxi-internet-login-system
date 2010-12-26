@@ -208,13 +208,30 @@ class User extends PersistantBasicObject {
 		parent::__set($key, $value);
 	}
 
+	public function has_avatar() {
+		return 1 == Avatar::count(array(
+			'user_id' => $this->id,
+		));
+	}	
+
 	public function __get($key) {
 		switch($key) {
+			case 'avatar_url':
+				if($this->has_avatar()) {
+					return "/Avatar/view/{$this->username}.jpg";
+				} else {
+					return "/gfx/default.jpg";
+				}
 			case 'personnummer':
 				return str_replace('-', '', $this->birthdate)."-{$this->person_id_number}";
 			default:
 				return parent::__get($key);
 		}
+	}
+
+	public function Avatar() {
+		$avatar = parent::Avatar();
+		return array_shift($avatar);
 	}
 
 	public function commit() {
