@@ -20,7 +20,7 @@ class Network {
 		if($mac == null){
 			$mac = self::get_mac();
 		}
-		return preg_match('/^([0-9A-F]{1,2}:){5}[0-9A-F]{1,2}$/i', $mac);
+		return preg_match('/^([0-9A-F]{1,2}:){5}[0-9A-F]{1,2}$/i', $mac) || $mac == '127.0.0.1';
 	}
 }
 ?>

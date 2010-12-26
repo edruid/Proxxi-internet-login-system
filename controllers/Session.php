@@ -23,14 +23,22 @@ class SessionC extends Controller {
 		$session->mac = Network::get_mac();
 		$session->internet = $user->has_access('internet') && Network::is_local($session->mac);
 		$session->commit();
+		if(Network::is_local()) {
+			$user->set_attending();
+		}
 		Message::add_notice("Välkommen {$user->first_name}");
 		URL::redirect($_SERVER['HTTP_REFERER']);
 	}
 
 	public function delete($params) {
 		$this->_access_type('script');
-		$session = Session::from_id(session_id());
-		$session->delete();
+		global $current_user, $session;
+		if($session != null) {
+			if(Network::is_local($session->mac)) {
+				$current_user->set_attending();
+			}
+			$session->delete();
+		}
 		session_destroy();
 		URL::redirect('');
 	}

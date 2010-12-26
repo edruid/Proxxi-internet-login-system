@@ -22,6 +22,21 @@ class User extends PersistantBasicObject {
 		return $crypt == $this->password;
 	}
 
+	public function set_attending($day = null) {
+		if($day == null) {
+			$day = date('Y-m-d');
+		}
+		try{
+			$attendance = new Attendance();
+			$attendance->user_id = $this->id;
+			$attendance->day = $day;
+			$attendance->commit();
+		} catch(Exception $e){
+			return $e->getMessage();
+		}
+		return null;
+	}
+
 	public static function from_username($username) {
 		return parent::from_field('username', $username);
 	}

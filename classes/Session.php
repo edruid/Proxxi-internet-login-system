@@ -48,6 +48,9 @@ class Session extends BasicObject {
 			'time:<' => date('Y-m-d H:i:s', time()-self::TIMEOUT),
 		));
 		foreach($sessions as $session){
+			if(Network::is_local($session->mac)) {
+				$session->User->set_attending();
+			}
 			$session->delete();
 		}
 	}
