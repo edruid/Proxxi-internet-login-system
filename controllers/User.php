@@ -74,12 +74,15 @@ class UserC extends Controller {
 
 	public function create($params) {
 		$this->_access_type('html');
+		$this->_register('settings', Setting::selection(array('@order' => 'name')));
 		$this->_display('create');
 		new LayoutC('html');
 	}
 
 	public function make($params) {
 		$this->_access_type('script');
+		global $db;
+		$db->autocommit(false);
 		$fields = array(
 			'username',
 			'first_name',
@@ -117,6 +120,19 @@ class UserC extends Controller {
 				$error = true;
 			}
 		}
+		foreach(Setting::selection() as $setting) {
+			if(ClientData::post('setting/'.$setting->code_name) == 'on') {
+				try{
+					$user_setting = new UserSetting();
+					$user_setting->user_id = $user->id;
+					$user_setting->setting_id = $setting->id;
+					$user_setting->commit();
+				} catch(Exception $e) {
+					Message::add_error($e->get_message);
+					$error = true;
+				}
+			}
+		}
 		if($error) {
 			$data = $_POST;
 			unset($data['password']);
@@ -125,6 +141,7 @@ class UserC extends Controller {
 			ClientData::defaults_set($data);
 			URL::redirect("/User/create");
 		} else {
+			$db->commit();
 			Message::add_notice("Användare {$user->username} skapad");
 			URL::redirect("/User/edit/{$user->username}");
 		}

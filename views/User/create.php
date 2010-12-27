@@ -66,6 +66,10 @@
 				<td><input type="password" name="confirm_password" /></td>
 			</tr>
 		</table>
+		<?php
+			UserSettingC::_display('_form');
+			$this->_print_child();
+		?>
 		<input type="submit" value="Bli medlem" />
 	</fieldset>
 </form>
