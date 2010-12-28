@@ -120,16 +120,18 @@ class UserC extends Controller {
 				$error = true;
 			}
 		}
-		foreach(Setting::selection() as $setting) {
-			if(ClientData::post('setting/'.$setting->code_name) == 'on') {
-				try{
-					$user_setting = new UserSetting();
-					$user_setting->user_id = $user->id;
-					$user_setting->setting_id = $setting->id;
-					$user_setting->commit();
-				} catch(Exception $e) {
-					Message::add_error($e->get_message);
-					$error = true;
+		if(!$error) {
+			foreach(Setting::selection() as $setting) {
+				if(ClientData::post('setting/'.$setting->code_name) == 'on') {
+					try{
+						$user_setting = new UserSetting();
+						$user_setting->user_id = $user->id;
+						$user_setting->setting_id = $setting->id;
+						$user_setting->commit();
+					} catch(Exception $e) {
+						Message::add_error($e->getMessage());
+						$error = true;
+					}
 				}
 			}
 		}

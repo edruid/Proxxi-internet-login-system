@@ -3,7 +3,7 @@
 		<li>
 			<label>
 				<input type="checkbox" name="setting/<?=$setting->code_name?>"
-					<? if(ClientData::post('setting/'.$setting->code_name)): ?>
+					<? if(ClientData::defaults('setting/'.$setting->code_name)): ?>
 						checked="checked"
 					<? endif ?>
 				/>
