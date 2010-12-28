@@ -253,6 +253,12 @@ class User extends PersistantBasicObject {
 		if(!Validate::personidnumber(str_replace('-', '', $this->birthdate).'-'.$this->person_id_number)) {
 			throw new UserException("Personnumret validerar inte");
 		}
+		if(0 < User::count(array(
+				'birthdate' => $this->birthdate,
+				'person_id_number' => $this->person_id_number,
+		))) {
+			throw new UserException('Personnumret finns redan i registret. Kontakta en admin för att få tillgång till ditt konto.');
+		}
 		parent::commit();
 	}
 }
