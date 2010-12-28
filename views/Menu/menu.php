@@ -35,6 +35,9 @@
 			<? if($user->has_access('edit_user')): ?>
 				<li><a href="/User/create">Skapa medlem</a></li>
 			<? endif ?>
+			<? if($user->has_access('edit_setting')): ?>
+				<li><a href="/Setting/index">Inställningar</a></li>
+			<? endif ?>
 			<? if($user->has_access('edit_group') || $user->has_access('edit_group_access')): ?>
 				<li><a href="/Group/index">Grupper</a></li>
 			<? endif ?>
