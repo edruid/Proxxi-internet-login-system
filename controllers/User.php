@@ -30,7 +30,17 @@ class UserC extends Controller {
 
 	public function view($params) {
 		$this->_access_type('html');
-		$user = User::from_username(array_shift($params));
+		global $current_user;
+		if($current_user == null) {
+			Message::add_error('Logga in för att få titta på medlemmar');
+			URL::redirect('');
+		}
+		$username = array_shift($params);
+		if(!$current_user->is_member() && !$current_user->has_access('view_user') && $current_user->username != $username) {
+			Message::add_error('Du måste vara medlem för att se andra medlemmar');
+			URL::redirect('');
+		}
+		$user = User::from_username($username);
 		if(!$user) {
 			$this->unknown_user($params);
 			return;
