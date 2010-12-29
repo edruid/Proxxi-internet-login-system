@@ -212,5 +212,30 @@ class UserC extends Controller {
 		ClientData::session_set('_POST', $post);
 		URL::redirect("/User/edit/{$user->username}");
 	}
+
+	public function export($params) {
+		$this->_access_type('html');
+		global $current_user;
+		if($current_user == null || !$current_user->has_access('view_user')) {
+			Message::add_error('Du har inte access att se allt medlemsdata.');
+			URL::redirect('');
+		}
+		$date = array_shift($params);
+		if(preg_match('/^[0-9]{4}$/', $date)) {
+			$date = "$date-12-31";
+		} elseif(!preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $date)) {
+			$date = date('Y-12-31');
+		}
+		$memberships = Membership::selection(array(
+			'@order' => 'User.birthdate',
+			'end:>=' => $date,
+			'start:<=' => $date,
+		));
+		$this->_register('date', $date);
+		$this->_register('memberships', $memberships);
+		$this->_register('title', 'Användarexport');
+		$this->_display('export');
+		new LayoutC('html');
+	}
 }
 ?>

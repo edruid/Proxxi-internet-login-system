@@ -227,7 +227,31 @@ class User extends PersistantBasicObject {
 		return 1 == Avatar::count(array(
 			'user_id' => $this->id,
 		));
-	}	
+	}
+
+	public function member_fee($year = null) {
+		if($year == null) {
+			$year = date('Y');
+		} else {
+			$year = substr($year, 0, 4);
+		}
+		$age = $year - substr($this->birthdate, 0, 4);
+		if($year < 2007) {
+			return 20;
+		} elseif($year < 2011) {
+			if($age <= 25) {
+				return 20;
+			} else {
+				return 100;
+			}
+		} else {
+			if($age <= 25) {
+				return 50;
+			} else {
+				return 100;
+			}
+		}
+	}
 
 	public function __get($key) {
 		switch($key) {
