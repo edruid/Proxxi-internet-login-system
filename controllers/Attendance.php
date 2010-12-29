@@ -27,7 +27,7 @@ class AttendanceC extends Controller {
 	public function index($params) {
 		$this->_access_type('html');
 		global $current_user;
-		if($current_user == null || !$current_user->is_member()) {
+		if($current_user == null || (!$current_user->is_member() && !$current_user->has_access('view_user'))) {
 			Message::add_error('Du måste vara inloggad och medlem för att se vilka som är i lokalen.');
 			URL::redirect('');
 		}
