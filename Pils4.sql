@@ -44,6 +44,7 @@ CREATE TABLE `users` (
 	`email` varchar(64) DEFAULT '',
 	`phone1` varchar(16) NOT NULL,
 	`phone2` varchar(16) DEFAULT '',
+	`co` varchar(64) NOT NULL,
 	`street_address` varchar(64) NOT NULL,
 	`area_code` int(6) unsigned NOT NULL,
 	`area` varchar(64) NOT NULL,

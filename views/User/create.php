@@ -47,6 +47,10 @@
 				<td><input type="text" value="<?=ClientData::defaults('email')?>" name="email" /></td>
 			</tr>
 			<tr>
+				<th>C/o</th>
+				<td><input type="text" value="<?=ClientData::defaults('co')?>" name="co" /></td>
+			</tr>
+			<tr>
 				<th>Gatuadress</th>
 				<td><input type="text" value="<?=ClientData::defaults('street_address')?>" name="street_address" /></td>
 			</tr>
