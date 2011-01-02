@@ -29,7 +29,7 @@
 				<td><?=$membership->start?></td>
 				<td><?=$membership->end?></td>
 				<td><?=$user->Sex=='male'?'Man':'Kvinna'?></td>
-				<td></td>
+				<td><?=$user->co?></td>
 				<td><?=$user->street_address?></td>
 				<td><?=$user->area_code?></td>
 				<td><?=$user->area?></td>
