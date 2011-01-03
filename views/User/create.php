@@ -74,6 +74,16 @@
 			UserSettingC::_display('_form');
 			$this->_print_child();
 		?>
+		<ul>
+			<? foreach($eulas as $eula): ?>
+				<li>
+					<label>
+						<input type="checkbox" name="eula/<?=$eula->code_name?>" />
+						Jag har läst och accepterat föreningens <a href="<?=$eula->url?>"><?=$eula->name?></a>
+					</label>
+				</li>
+			<? endforeach ?>
+		</ul>
 		<input type="submit" value="Bli medlem" />
 	</fieldset>
 </form>

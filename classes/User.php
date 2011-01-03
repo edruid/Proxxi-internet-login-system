@@ -289,6 +289,26 @@ class User extends PersistantBasicObject {
 		}
 		parent::commit();
 	}
+
+	public static function get_eulas() {
+		$eulas = array();
+		$eula = new stdClass();
+		$eula->code_name = 'house_rules';
+		$eula->url = '/Static/rules';
+		$eula->name = 'lokalregler';
+		$eulas[] = $eula;
+		$eula = new stdClass();
+		$eula->code_name = 'stadgar';
+		$eula->url = '/Static/stadgar';
+		$eula->name = 'stadgar';
+		$eulas[] = $eula;
+		$eula = new stdClass();
+		$eula->code_name = 'pul';
+		$eula->name = 'personuppgiftsbehandling';
+		$eula->url = '/Static/pul';
+		$eulas[] = $eula;
+		return $eulas;
+	}
 }
 
 class UserException extends Exception {}

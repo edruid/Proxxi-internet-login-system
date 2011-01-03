@@ -84,6 +84,7 @@ class UserC extends Controller {
 
 	public function create($params) {
 		$this->_access_type('html');
+		$this->_register('eulas', User::get_eulas());
 		$this->_register('settings', Setting::selection(array('@order' => 'name')));
 		$this->_display('create');
 		new LayoutC('html');
@@ -121,6 +122,12 @@ class UserC extends Controller {
 			} catch(UserException $e) {
 				Message::add_error($e->getMessage());
 				$error = true;
+			}
+		}
+		foreach(User::get_eulas() as $eula) {
+			if(ClientData::post("eula/{$eula->code_name}") != 'on') {
+				$error = true;
+				Message::add_error("Du måste godkänna föreningens {$eula->name} för att bli medlem");
 			}
 		}
 		if(!$error) {
