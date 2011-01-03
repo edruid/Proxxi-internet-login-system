@@ -74,14 +74,14 @@ class GroupC extends Controller {
 			Message::add_error("Du har inte access att redigera grupper");
 			URL::redirect('');
 		}
-		$group = Group::from_id(ClientData::post('group_id'));
+		$group = Group::from_id(array_shift($params));
 		if(!$group) {
 			Message::add_error("Gruppen du försöker redigera finns inte");
 			URL::redirect('/Group/index');
 		}
 		try {
 			$group->name= ClientData::post('name');
-			$access = $groupp->Access;
+			$access = $group->Access;
 			$access->name = "Grant \"{$group->name}\"";
 			$group->commit();
 			$access->commit();
