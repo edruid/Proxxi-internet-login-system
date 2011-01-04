@@ -24,13 +24,23 @@ function __autoload($class)
 	global $repo_root;
 	if(substr($class, -1, 1) == 'C') {
 		$controller = substr($class, 0, -1);
+		if(file_exists("$repo_root/controllers/$controller.local.php")) {
+			require_once("$repo_root/controllers/$controller.local.php");
+			return;
+		}
 		if(file_exists("$repo_root/controllers/$controller.php")) {
 			require_once("$repo_root/controllers/$controller.php");
 			return;
 		}
 	}
-	if(file_exists($repo_root.'/classes/'.$class.'.php'))
+	if(file_exists($repo_root.'/classes/'.$class.'.local.php')) {
+		require_once $repo_root.'/classes/'.$class.'.local.php';
+		return;
+	}
+	if(file_exists($repo_root.'/classes/'.$class.'.php')) {
 		require_once $repo_root.'/classes/'.$class.'.php';
+		return;
+	}
 }
 
 /**

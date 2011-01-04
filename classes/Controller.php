@@ -89,18 +89,23 @@ class Controller {
 	}
 
 	protected static function _display($view) {
-		$file = get_called_class();
+		$class = get_called_class();
 		if(!$view) {
 			self::_stack(null);
 			return;
 		}
-		if(substr($file, -1, 1) == 'C') {
-			$file = substr($file, 0, -1);
+		if(substr($class, -1, 1) == 'C') {
+			$class = substr($class, 0, -1);
 		}
 		if(strstr($view, '/')) {
 			throw new Exception("Ileagal character in path");
 		}
-		$file = "../views/$file/$view.php";
+		$file = "../views/$class/$view.local.php";
+		if(file_exists($file)) {
+			self::_stack($file);
+			return;
+		}
+		$file = "../views/$class/$view.php";
 		if(file_exists($file)) {
 			self::_stack($file);
 		} else {
