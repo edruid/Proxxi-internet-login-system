@@ -1,5 +1,6 @@
 <?php
 class AttendanceC extends Controller {
+	protected $_default_site = 'create';
 	public function create($params) {
 		$this->_access_type('html');
 		$this->_display('create');

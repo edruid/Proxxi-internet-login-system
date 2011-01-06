@@ -8,7 +8,7 @@ $request=explode('/',$path_info);
 array_shift($request);
 $main=array_shift($request);
 if($main == '') {
-	$main = "Access";
+	$main = "Attendance";
 }
 $session = Session::from_id(session_id());
 if($session != null) {
