@@ -78,7 +78,13 @@
 			<? foreach($eulas as $eula): ?>
 				<li>
 					<label>
-						<input type="checkbox" name="eula/<?=$eula->code_name?>" />
+						<input
+							type="checkbox"
+							name="eula/<?=$eula->code_name?>"
+							<? if(ClientData::defaults("eula/$eula->code_name")=='on'): ?>
+								checked="checked"
+							<? endif ?>
+						/>
 						Jag har läst och accepterat föreningens <a href="<?=$eula->url?>"><?=$eula->name?></a>
 					</label>
 				</li>
