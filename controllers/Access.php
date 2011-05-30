@@ -15,6 +15,23 @@ class AccessC extends Controller {
 		new LayoutC('html');
 	}
 
+	public function view($params){
+		$this->_access_type('html');
+		global $session;
+		if($session == null || !$session->User->has_access('edit_access')) {
+			Message::add_error("Du har inte access att redigera rättigheter");
+			URL::redirect('');
+		}
+		$access = Access::from_code_name(array_shift($params));
+		if($access == null) {
+			Message::add_error("Rättigheten du försöker redigera finns inte");
+			URL::redirect('/Access/index');
+		}
+		$this->_register('access', $access);
+		$this->_display('view');
+		new LayoutC('html');
+	}
+
 	public function edit($params) {
 		$this->_access_type('html');
 		global $session;
