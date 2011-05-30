@@ -10,7 +10,7 @@
 	<tbody>
 		<? foreach($access->GroupAccess as $group_access): ?>
 			<tr>
-				<td><a href="/Group/view<?=$group_access->group_id?>"><?=$group_access->Group?></a></td>
+				<td><a href="/Group/view/<?=$group_access->group_id?>"><?=$group_access->Group?></a></td>
 				<td>
 					<? if($group_access->permanent): ?>
 						Permanent
