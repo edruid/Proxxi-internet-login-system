@@ -15,3 +15,4 @@ GRANT select, insert, delete ON pils4.accesses TO 'pils4'@'localhost';
 GRANT select, insert, update, delete ON pils4.settings TO 'pils4'@'localhost';
 GRANT select, insert ON pils4.persistant_users TO 'pils4'@'localhost';
 GRANT select, insert, update ON pils4.users TO 'pils4'@'localhost';
+GRANT select, insert, delete ON pils4.avatars TO 'pils4'@'localhost';
