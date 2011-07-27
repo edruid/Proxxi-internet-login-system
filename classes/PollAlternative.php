@@ -10,6 +10,12 @@ class PollAlternative extends BasicObject {
 		return 'poll_alternatives';
 	}
 
+	public function register_vote($user_id) {
+		global $db;
+		$null = null;
+		$db->prepare_full("CALL register_vote(?, ?)", $null, 'ii', $user_id, $this->id)->close();
+	}
+
 	public function __toString() {
 		return (string)$this->text;
 	}

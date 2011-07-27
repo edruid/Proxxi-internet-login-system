@@ -126,9 +126,10 @@
 	</li>
 	<li>
 		<h3><a name="Rösträtt">Rösträtt</a></h3>
-		<p>Endast fullt betalande närvarande medlemmar äger rösträtt på årsmöte. På ordinarie årsmöte har även fullt
-betalande närvarande medlemmar från föregående år rösträtt. På styrelsemöte äger endast närvarande ur
-styrelsen rösträtt.
+		<p>Endast fullt betalande närvarande medlemmar äger rösträtt på
+		årsmöte. På ordinarie årsmöte har även fullt betalande närvarande
+		medlemmar från föregående år rösträtt. På styrelsemöte äger endast
+		närvarande ur styrelsen rösträtt.</p>
 	</li>
 	<li>
 		<h3><a name="Röstetal">Röstetal</a></h3>
