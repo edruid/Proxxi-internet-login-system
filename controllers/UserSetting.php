@@ -8,10 +8,10 @@ class UserSettingC extends Controller {
 			$this->_register('settings', Setting::selection(array(
 				'@order' => 'name',
 			)));
-			$this->_display('edit');
 		} else {
-			$this->_display(null);
+			throw new Exception('should not change settings of others');
 		}
+		self::_register('user', $user);
 	}
 
 	public function modify($params) {
@@ -45,6 +45,14 @@ class UserSettingC extends Controller {
 		}
 		Message::add_notice("Inställningar updaterade");
 		URL::redirect("/User/edit/{$user->username}");
+	}
+
+	public function create($params) {
+		$this->_access_type('html');
+		global $current_user;
+		$this->_register('settings', Setting::selection(array(
+			'@order' => 'name',
+		)));
 	}
 }
 ?>

@@ -3,8 +3,7 @@ class AttendanceC extends Controller {
 	protected $_default_site = 'create';
 	public function create($params) {
 		$this->_access_type('html');
-		$this->_display('create');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function make($params) {
@@ -46,8 +45,8 @@ class AttendanceC extends Controller {
 		$this->_register('users', $users);
 		$this->_register('date', $date);
 		$this->_register('count', $count);
-		$this->_display('index');
-		new LayoutC('html');
+		$this->_register_global('caption', "Närvarande $date");
+		self::_partial('Layout/html', $this);
 	}
 }
 ?>

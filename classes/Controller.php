@@ -1,6 +1,9 @@
 <?php
 class Controller {
 	protected $_default_site = null;
+	protected $_private_data = array();
+	protected $_path = null;
+	protected $_site = null;
 
 	public static function _access_type($type) {
 		if(defined('HTML_ACCESS')) {
@@ -36,7 +39,8 @@ class Controller {
 		if(!method_exists($this, $site)) {
 			throw new Exception("No such site: \"".get_called_class()."/$site\"");
 		}
-		$this->$site($data);
+		$this->_site = $site;
+		$this->_path = substr(get_called_class(), 0, -1).'/'.$site;
 	}
 	
 	private static function _reg($key) {
@@ -51,66 +55,65 @@ class Controller {
 			if(array_key_exists($key, $data)) {
 				return $data[$key];
 			} else {
-				return false;
+				return null;
 			}
 		}
 	}
 
 	protected function _register($key, $value) {
+		$this->_private_data[$key] = $value;
+	}
+
+	protected function _register_global($key, $value) {
 		self::_reg($key, $value);
 	}
 
 	protected function _get($key) {
+		if(array_key_exists($key, $this->_private_data)) {
+			return $this->_private_data[$key];
+		}
 		return self::_reg($key);
 	}
 
-	private static function _stack($file = null) {
-		static $files = array();
-		if($file == null) {
-			return array_pop($files);
-		} else {
-			array_push($files, $file);
+	private static function _stack($path, $data = array()) {
+		static $paths = array();
+		if(!array_key_exists($path, $paths)) {
+			$controller = self::_make_controller($path, $data);
+			$path = $controller->_path;
+			$paths[$path] = $controller;
+			$site = $controller->_site;
+			$controller->$site($data);
 		}
+		return $paths[$path];
 	}
 
-	public function _print_child() {
-		$file = self::_stack();
-		if(!$file) {
-			return;
+	private static function _make_controller($path, $data) {
+		$tokens = explode('/', $path);
+		$controller = array_shift($tokens).'C';
+		return new $controller(array_shift($tokens), $data);
+	}
+
+	public static function _partial($path, $data = array()) {
+		static $paths = array();
+		if(isset($paths[$path])) {
+			die("$path was repeated");
 		}
-		if(!file_exists($file)) {
-			throw new Exception("No such file \"$file\"");
-		}
-		$data= $this->_reg(0,0,0);
-		foreach($data as $key => $value) {
+		$paths[$path] = true;
+		self::_stack($path, $data)->_display();
+	}
+
+	public static function _declare($path, $data = array()) {
+		return self::_stack($path, $data);
+	}
+
+	public function _display() {
+		foreach(self::_reg(0,0,0) as $key => $value) {
 			$$key = $value;
 		}
-		require $file;
-	}
-
-	protected static function _display($view) {
-		$class = get_called_class();
-		if(!$view) {
-			self::_stack(null);
-			return;
+		foreach($this->_private_data as $key => $value) {
+			$$key = $value;
 		}
-		if(substr($class, -1, 1) == 'C') {
-			$class = substr($class, 0, -1);
-		}
-		if(strstr($view, '/')) {
-			throw new Exception("Ileagal character in path");
-		}
-		$file = "../views/$class/$view.local.php";
-		if(file_exists($file)) {
-			self::_stack($file);
-			return;
-		}
-		$file = "../views/$class/$view.php";
-		if(file_exists($file)) {
-			self::_stack($file);
-		} else {
-			throw new Exception("No view exists \"$file\"");
-		}
+		require "../views/{$this->_path}.php";
 	}
 }
 ?>

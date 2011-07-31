@@ -11,8 +11,7 @@ class AccessC extends Controller {
 			$current_user = $session->User;
 			$this->_register('current_user', $current_user);
 		}
-		$this->_display('index');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function view($params){
@@ -28,8 +27,7 @@ class AccessC extends Controller {
 			URL::redirect('/Access/index');
 		}
 		$this->_register('access', $access);
-		$this->_display('view');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function edit($params) {
@@ -45,8 +43,7 @@ class AccessC extends Controller {
 			URL::redirect('/Access/index');
 		}
 		$this->_register('access', $access);
-		$this->_display('edit');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function create($params) {
@@ -62,8 +59,7 @@ class AccessC extends Controller {
 			URL::redirect('');
 		}
 		$this->_register('current_user', $current_user);
-		$this->_display('create');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function make($params) {

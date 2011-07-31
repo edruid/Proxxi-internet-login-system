@@ -15,7 +15,7 @@ class MembershipC extends Controller {
 			'@order' => 'end:desc',
 		));
 		$this->_register('membership', array_shift($membership));
-		$this->_display('create');
+		self::_register('user', $user);
 	}
 
 	public function make($params) {

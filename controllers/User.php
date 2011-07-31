@@ -24,8 +24,7 @@ class UserC extends Controller {
 		$users = User::selection($params);
 		$this->_register('users', $users);
 		$this->_register('title', 'Användare');
-		$this->_display('index');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function view($params) {
@@ -47,8 +46,7 @@ class UserC extends Controller {
 		}
 		$this->_register('title', $user->username);
 		$this->_register('user', $user);
-		$this->_display('view');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function edit($params) {
@@ -68,26 +66,13 @@ class UserC extends Controller {
 		$this->_register('user', $user);
 		$admin = $current_user->has_access('edit_user');
 		$this->_register('admin', $admin);
-		if($current_user->may_grant()) {
-			new UserGroupC('edit', array($user));
-		}
-		if($current_user->has_access('edit_membership')) {
-			new MembershipC('create', array($user));
-		}
-		if($current_user->id == $user->id) {
-			new AvatarC('edit', array($user));
-			new UserSettingC('edit', array($user));
-		}
-		$this->_display('edit');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function create($params) {
 		$this->_access_type('html');
 		$this->_register('eulas', User::get_eulas());
-		$this->_register('settings', Setting::selection(array('@order' => 'name')));
-		$this->_display('create');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function make($params) {
@@ -253,8 +238,11 @@ class UserC extends Controller {
 		$this->_register('date', $date);
 		$this->_register('memberships', $memberships);
 		$this->_register('title', 'Användarexport');
-		$this->_display('export');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
+	}
+
+	public function table($params) {
+		$this->_register('users', $params);
 	}
 }
 ?>
