@@ -20,5 +20,5 @@ $page = $main.'C';
 if(!class_exists($page)) {
 	die("$main does not exist");
 }
-$controller = $page::_declare($main.'/'.array_shift($request), $request);
+$page::_declare($main.'/'.array_shift($request), $request);
 ?>

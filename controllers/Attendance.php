@@ -45,7 +45,6 @@ class AttendanceC extends Controller {
 		$this->_register('users', $users);
 		$this->_register('date', $date);
 		$this->_register('count', $count);
-		$this->_register_global('caption', "Närvarande $date");
 		self::_partial('Layout/html', $this);
 	}
 }

@@ -27,6 +27,11 @@ class UserC extends Controller {
 		self::_partial('Layout/html', $this);
 	}
 
+	public function table($params) {
+		$this->_register('users', array_shift($params));
+		$this->_register('caption', array_shift($params));
+	}
+
 	public function view($params) {
 		$this->_access_type('html');
 		global $current_user;
@@ -239,10 +244,6 @@ class UserC extends Controller {
 		$this->_register('memberships', $memberships);
 		$this->_register('title', 'Användarexport');
 		self::_partial('Layout/html', $this);
-	}
-
-	public function table($params) {
-		$this->_register('users', $params);
 	}
 }
 ?>

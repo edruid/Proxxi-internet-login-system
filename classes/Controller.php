@@ -75,16 +75,20 @@ class Controller {
 		return self::_reg($key);
 	}
 
-	private static function _stack($path, $data = array()) {
+	private static function _stack($path, $data, $action) {
 		static $paths = array();
-		if(!array_key_exists($path, $paths)) {
+		if(!array_key_exists($path, $paths) || $action == 'add') {
 			$controller = self::_make_controller($path, $data);
 			$path = $controller->_path;
-			$paths[$path] = $controller;
+			$paths[$path][] = $controller;
 			$site = $controller->_site;
 			$controller->$site($data);
 		}
-		return $paths[$path];
+		if($action == 'display') {
+			$controller = array_shift($paths[$path]);
+			if(count($paths[$path]) == 0) unset($paths[$path]);
+			return $controller;
+		}
 	}
 
 	private static function _make_controller($path, $data) {
@@ -99,11 +103,11 @@ class Controller {
 			die("$path was repeated");
 		}
 		$paths[$path] = true;
-		self::_stack($path, $data)->_display();
+		self::_stack($path, $data, 'display')->_display();
 	}
 
 	public static function _declare($path, $data = array()) {
-		return self::_stack($path, $data);
+		self::_stack($path, $data, 'add');
 	}
 
 	public function _display() {
