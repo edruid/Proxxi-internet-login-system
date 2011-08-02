@@ -27,7 +27,7 @@ class AvatarC extends Controller {
 		if($user->id != $current_user->id) {
 			throw new Exception("Du får inte byta någon annans bild.");
 		}
-		$this->_display('edit');
+		$this->_register('user', $user);
 	}
 
 	public function modify($params) {

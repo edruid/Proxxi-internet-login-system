@@ -20,7 +20,5 @@ $page = $main.'C';
 if(!class_exists($page)) {
 	die("$main does not exist");
 }
-$page = new $page(array_shift($request), $request);
-$page->_print_child();
-
+$page::_declare($main.'/'.array_shift($request), $request);
 ?>

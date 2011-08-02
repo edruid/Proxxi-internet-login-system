@@ -6,8 +6,7 @@ class GroupAccessC extends Controller {
 		$this->_register('group_accesses', GroupAccess::selection(array(
 			'@order' => 'name',
 		)));
-		$this->_display('index');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function edit($params) {
@@ -17,7 +16,8 @@ class GroupAccessC extends Controller {
 			Message::add_error("Du har inte access att redigera grupp accesser");
 			URL::redirect('');
 		}
-		$group = Group::from_id(array_shift($params));
+		$group = array_shift($params);
+		$this->_register('group', $group);
 		if($group == null) {
 			Message::add_error("Okänd grupp.");
 			URL::redirect('/Group/index');
@@ -26,7 +26,6 @@ class GroupAccessC extends Controller {
 			'@order' => 'name',
 		));
 		$this->_register('accesses', $accesses);
-		$this->_display('edit');
 	}
 
 	public function modify($params) {

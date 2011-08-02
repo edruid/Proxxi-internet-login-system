@@ -3,16 +3,15 @@ class GroupC extends Controller {
 	protected $_default_site = 'index';
 	public function index($params) {
 		$this->_access_type('html');
-		global $session;
-		if($session == null) {
+		global $current_user;
+		if($current_user == null) {
 			Message::add_error('Du måste vara inloggad först.');
 			URL::redirect('');
 		}
 		$this->_register('groups', Group::selection(array(
 			'@order' => 'name',
 		)));
-		$this->_display('index');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function edit($params) {
@@ -27,8 +26,7 @@ class GroupC extends Controller {
 			URL::redirect('/Group/index');
 		}
 		$this->_register('group', $group);
-		$this->_display('edit');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function create($params) {
@@ -38,8 +36,7 @@ class GroupC extends Controller {
 			Message::add_error("Du har inte access att skapa nya grupper");
 			URL::redirect('');
 		}
-		$this->_display('create');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function make($params) {
@@ -94,10 +91,10 @@ class GroupC extends Controller {
 			'UserGroup.group_id' => $group->id,
 		);
 		$users = User::selection($params);
-		$this->_register('users', $users);
+		self::_declare('User/table', $users);
+		$this->_register_global('caption', 'Gruppmedlemmar');
 		$this->_register('group', $group);
-		$this->_display('view');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 }
 ?>

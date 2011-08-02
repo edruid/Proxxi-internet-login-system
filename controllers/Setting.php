@@ -6,8 +6,7 @@ class SettingC extends Controller {
 		$this->_register('settings', Setting::selection(array(
 			'@order' => 'name',
 		)));
-		$this->_display('index');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function edit($params) {
@@ -17,8 +16,7 @@ class SettingC extends Controller {
 			Message::add_error("Du har inte access att redigera inställningar");
 			URL::redirect('');
 		}
-		$this->_display('edit');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function create($params) {
@@ -28,8 +26,7 @@ class SettingC extends Controller {
 			Message::add_error("Du har inte access att skapa nya inställningar");
 			URL::redirect('');
 		}
-		$this->_display('create');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function make($params) {

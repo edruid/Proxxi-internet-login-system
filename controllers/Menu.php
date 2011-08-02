@@ -5,6 +5,5 @@ class MenuC extends Controller {
 		$this->_register('menu', array(
 			'user/index' => 'Användare'
 		));
-		$this->_display('menu');
 	}
 }
