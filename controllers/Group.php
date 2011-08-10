@@ -90,9 +90,7 @@ class GroupC extends Controller {
 			),
 			'UserGroup.group_id' => $group->id,
 		);
-		$users = User::selection($params);
-		self::_declare('User/table', $users);
-		$this->_register_global('caption', 'Gruppmedlemmar');
+		$this->_register('users', User::selection($params));
 		$this->_register('group', $group);
 		self::_partial('Layout/html', $this);
 	}
