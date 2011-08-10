@@ -12,7 +12,6 @@
 </form>
 <?php
 	if($current_user->has_access('edit_group_access')) {
-		new GroupAccessC('edit', array($group->id));
-		$this->_print_child();
+		self::_partial('GroupAccess/edit', array($group));
 	}
 ?>

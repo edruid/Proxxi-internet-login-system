@@ -71,8 +71,7 @@
 			</tr>
 		</table>
 		<?php
-			UserSettingC::_display('_form');
-			$this->_print_child();
+			self::_partial('UserSetting/create');
 		?>
 		<ul>
 			<? foreach($eulas as $eula): ?>

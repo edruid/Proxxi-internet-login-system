@@ -104,13 +104,13 @@
 </form>
 <?php
 if($current_user->id == $user->id) {
-	$this->_print_child();
-	$this->_print_child();
+	self::_partial('UserSetting/edit', array($user));
+	self::_partial('Avatar/edit', array($user));
 }
 if($current_user->has_access('edit_membership')) {
-	$this->_print_child();
+	self::_partial('Membership/create', array($user));
 }
 if($current_user->may_grant()) {
-	$this->_print_child();
+	self::_partial('UserGroup/edit', array($user));
 }
 ?>

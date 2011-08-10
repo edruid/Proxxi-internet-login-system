@@ -1,5 +1,5 @@
 <h1>Grupper</h1>
-<? if($session && $current_user->has_access('edit_group')): ?>
+<? if($current_user && $current_user->has_access('edit_group')): ?>
 	<p>
 		<a href="/Group/create">Skapa ny grupp</a>
 	</p>

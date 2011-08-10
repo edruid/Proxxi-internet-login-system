@@ -2,7 +2,6 @@
 class SessionC extends Controller {
 	public function create($params) {
 		$this->_access_type('html');
-		$this->_display('create');
 	}
 
 	public function make($params) {

@@ -4,13 +4,13 @@ class UserGroupC extends Controller {
 		$this->_access_type('html');
 		global $current_user;
 		$user = array_shift($params);
+		$this->_register('user', $user);
 		if($current_user->may_grant()) {
 			$this->_register('groups', Group::selection(array(
 				'@order' => 'name',
 			)));
-			$this->_display('edit');
 		} else {
-			$this->_display(null);
+			throw new Exception('You may not grant');
 		}
 	}
 

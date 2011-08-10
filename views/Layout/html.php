@@ -10,18 +10,16 @@
 	</head>
 	<body>
 		<?php
-			new MenuC('menu');
-			$this->_print_child();
+			self::_partial('Menu/menu');
 		?>
 		<div id="content">
 			<div id="messages">
 				<?php
-					new MessageC('index');
-					$this->_print_child();
+					self::_partial('Message/index');
 				?>
 			</div>
 			<?php
-				$this->_print_child();
+				self::_partial($content);
 			?>
 		</div>
 		<div id="footer">

@@ -3,16 +3,15 @@ class GroupC extends Controller {
 	protected $_default_site = 'index';
 	public function index($params) {
 		$this->_access_type('html');
-		global $session;
-		if($session == null) {
+		global $current_user;
+		if($current_user == null) {
 			Message::add_error('Du måste vara inloggad först.');
 			URL::redirect('');
 		}
 		$this->_register('groups', Group::selection(array(
 			'@order' => 'name',
 		)));
-		$this->_display('index');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function edit($params) {
@@ -27,8 +26,7 @@ class GroupC extends Controller {
 			URL::redirect('/Group/index');
 		}
 		$this->_register('group', $group);
-		$this->_display('edit');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function create($params) {
@@ -38,8 +36,7 @@ class GroupC extends Controller {
 			Message::add_error("Du har inte access att skapa nya grupper");
 			URL::redirect('');
 		}
-		$this->_display('create');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 
 	public function make($params) {
@@ -50,16 +47,9 @@ class GroupC extends Controller {
 			URL::redirect('');
 		}
 		try{
-			$access = new Access();
-			$access->name = 'Grant "'.ClientData::post('name').'"';
-			$access->code_name=rand();
-			$access->commit();
 			$setting = new Group();
 			$setting->name = ClientData::post('name');
-			$setting->access_id = $access->id;
 			$setting->commit();
-			$access->code_name = "grant_{$setting->id}";
-			$access->commit();
 			URL::redirect('/Group/index');
 		} catch(Exception $e) {
 			Message::add_error($e->getMessage());
@@ -81,10 +71,7 @@ class GroupC extends Controller {
 		}
 		try {
 			$group->name= ClientData::post('name');
-			$access = $group->Access;
-			$access->name = "Grant \"{$group->name}\"";
 			$group->commit();
-			$access->commit();
 			Message::add_notice("Gruppen updaterad");
 			URL::redirect('/Group/index');
 		} catch(Exception $e) {
@@ -103,11 +90,9 @@ class GroupC extends Controller {
 			),
 			'UserGroup.group_id' => $group->id,
 		);
-		$users = User::selection($params);
-		$this->_register('users', $users);
+		$this->_register('users', User::selection($params));
 		$this->_register('group', $group);
-		$this->_display('view');
-		new LayoutC('html');
+		self::_partial('Layout/html', $this);
 	}
 }
 ?>

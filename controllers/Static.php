@@ -3,8 +3,7 @@ class StaticC extends Controller {
 	public function stadgar($params) {
 		$this->_access_type('html');
 		$this->_register('title', 'Stadgar');
-		$this->_display('stadgar');
-		new LayoutC('html');
+		self:_partial('Layout/html', $this);
 	}
 
 	public function internet_rules($params) {
@@ -22,21 +21,18 @@ class StaticC extends Controller {
 			)
 		));
 		$this->_register('title', 'Internetavtal');
-		$this->_display('internet_rules');
-		new LayoutC('html');
+		self:_partial('Layout/html', $this);
 	}
 
 	public function rules($params) {
 		$this->_access_type('html');
 		$this->_register('title', 'Lokalregler');
-		$this->_display('rules');
-		new LayoutC('html');
+		self:_partial('Layout/html', $this);
 	}
 
 	public function pul($params) {
 		$this->_access_type('html');
 		$this->_register('title', 'Personuppgiftsbehandling');
-		$this->_display('pul');
-		new LayoutC('html');
+		self:_partial('Layout/html', $this);
 	}
 }

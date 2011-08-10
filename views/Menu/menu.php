@@ -45,8 +45,7 @@
 	</ul>
 	<? if(!$current_user): ?>
 		<?php
-			new SessionC('create');
-			$this->_print_child();
+			self::_partial('Session/create');
 		?>
 	<? endif ?>
 </div>

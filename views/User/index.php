@@ -1,8 +1,6 @@
 <h1>Användare</h1>
 <?php
-$this->_register('caption', 'Medlemmar');
-UserC::_display('_list');
-$this->_print_child();
+self::_partial('User/table', array($users, 'Medlemmar'));
 ?>
 <div>
 	<? if($start == 0): ?>
