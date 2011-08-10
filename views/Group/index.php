@@ -11,6 +11,9 @@
 				<td><a href="/Group/edit/<?=$group->id?>"><img src="/gfx/edit.png" alt="Redigera" /></a></td>
 			<? endif ?>
 			<td><a href="/Group/view/<?=$group->id?>"><?=$group?></a></td>
+			<? if($current_user->has_access('view_user')): ?>
+				<td><a href="/Attendance/group_create/<?=$group->id?>">Rapportera närvaro</a></td>
+			<? endif ?>
 		</tr>
 	<? endforeach ?>
 </table>
