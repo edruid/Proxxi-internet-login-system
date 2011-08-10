@@ -7,6 +7,32 @@ class AttendanceC extends Controller {
 		new LayoutC('html');
 	}
 
+	public function group_create($params) {
+		$this->_access_type('html');
+		global $current_user;
+		if($current_user == null || !$current_user->has_access('view_user')) {
+			Message::add_error('Du har inte access att rapportera närvaro för grupper.');
+			URL::redirect('');
+		}
+		$group = Group::from_id(array_shift($params));
+		if(!$group) {
+			Message::add_error('Det finns ingen sådan grupp');
+			URL::redirect('');
+		}
+		$users = User::selection(array(
+			'UserGroup.group_id' => $group->id,
+			'@order' => array(
+				'surname',
+				'first_name',
+			),
+		));
+		$this->_register('group', $group);
+		$this->_register('users', $users);
+
+		$this->_display('group_create');
+		new LayoutC('html');
+	}
+
 	public function make($params) {
 		$this->_access_type('script');
 		try{
