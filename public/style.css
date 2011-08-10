@@ -105,3 +105,8 @@ fieldset.hidden * {
 fieldset.hidden > legend {
 	display: block;
 }
+.color_display {
+	display: inline-block;
+	height: 2em;
+	width: 2em;
+}

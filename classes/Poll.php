@@ -13,5 +13,19 @@ class Poll extends BasicObject {
 	public function __toString() {
 		return (string)$this->name;
 	}
+
+	public function has_voted($user) {
+		return 0 < Voter::count(array(
+			'user_id' => $user->id, 
+			'poll_id' => $this->id,
+		));
+	}
+
+	public function may_vote($user) {
+		return $this->vote_until >= date('Y-m-d H:i:s') &&
+			$user != null &&
+			!$this->has_voted($user) &&
+			$user->is_member();
+	}
 }
 ?>
