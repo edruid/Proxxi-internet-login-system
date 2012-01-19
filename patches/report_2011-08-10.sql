@@ -4,7 +4,7 @@ CREATE TABLE `postnummer` (
 	`kommun`  varchar(20) DEFAULT NULL,
 	`postort` varchar(20) DEFAULT NULL,
 	KEY (`postnr`),
-	PRIMARY_KEY (`kommun`, `postnr`)
+	PRIMARY KEY (`kommun`, `postnr`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 delimiter $$
